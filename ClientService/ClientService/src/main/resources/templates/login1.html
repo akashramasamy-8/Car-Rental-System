@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" xmlns:th="http://www.thymeleaf.org">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - CarCaddy</title>
+    <link rel="stylesheet" href="navbar.html">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: #f0f0f0;
+            background-image: url('/images/deactivebg.jpg');
+            /* Replace with the path to your image */
+            background-size: cover;
+            /* Ensures the image covers the entire screen */
+            background-position: center;
+            /* Centers the image */
+            background-repeat: no-repeat;
+            /* Prevents the image from repeating */
+        }
+        .navbar {
+            background-color: rgba(31, 31, 31, 0.9);
+            color: #fff;
+            padding: 15px 10%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        .navbar .brand {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #5b13b9;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            margin-left: 15px;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #5b13b9;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #5b13b9;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .form-container {
+            max-width: 400px;
+            margin: 50px auto;
+            background-color: rgba(247, 245, 245, 0.9);
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
+            transition: background-color 0.3s;
+        }
+
+        h1 {
+            color: #5b13b9;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        form label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 1.1em;
+            color: #191818;
+        }
+
+        form input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            background-color: #dedbdb;
+            border: none;
+            border-radius: 5px;
+            color: #080707;
+            font-size: 1em;
+            transition: box-shadow 0.3s;
+        }
+
+        form input:focus {
+            box-shadow: 0 0 8px rgba(186, 31, 221, 0.8);
+            outline: none;
+        }
+
+        .btn-submit {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: #5b13b9;
+            color: #fff;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(166, 41, 234, 0.9);
+            background-color: #6b09ea;
+            outline: 2px solid #5b13b9;
+        }
+
+        .password-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .password-container input {
+            width: 100%;
+            padding-right: 30px;
+            /* Space for the icon */
+        }
+
+        .password-container .toggle-password {
+            position: absolute;
+            right: 10px;
+            cursor: pointer;
+            color: #888;
+        }
+
+        .password-container .toggle-password:hover {
+            color: #000;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="navbar">
+        <div class="brand">CarCaddy</div>
+        <div class="nav-links">
+            <a href="http://localhost:8080/home">Home</a>
+            <a href="http://localhost:8080/home#about">About</a>
+            <a href="http://localhost:8080/home#services">Service</a>
+            <a href="http://localhost:8080/home#contact">Contact</a>
+        </div>
+    </div>
+    <div class="form-container">
+        <h1>Login</h1>
+        <form action="/firstLogin" method="post">
+            <label for="employeeId">Employee Id</label>
+            <input type="text" id="employeeId" name="employeeId" th:value="${employeeId}"
+                placeholder="Enter Employee Id" required>
+
+            <label for="defaultPassword">Old Password</label>
+            <input type="text" id="defaultPassword" name="defaultPassword" th:value="${defaultPassword}"
+                placeholder="Enter Default Password" required>
+
+            <label for="newPassword">New Password</label>
+            <div class="password-container">
+                <input type="password" id="newPassword" name="newPassword" placeholder="Enter New Password" required>
+                <span class="toggle-password" onclick="togglePasswordVisibility()">
+                    <i id="password-icon" class="fa fa-eye"></i>
+                </span>
+            </div>
+
+            <button type="submit" class="btn-submit">Login</button>
+        </form>
+
+        <div id="message" th:text="${message}" style="display: none;"></div>
+        <div id="error" th:text="${error}" style="display: none;"></div>
+
+        <!-- JavaScript to handle alert and redirect after submission -->
+        <script>
+            /* Display Success Message */
+            const message = document.getElementById('message').innerText;
+            if (message) {
+                alert(message);
+            }
+
+            /* Display Error Message */
+            const error = document.getElementById('error').innerText;
+            if (error) {
+                alert(error);
+            }
+
+            /* Toggle Password Visibility */
+            function togglePasswordVisibility() {
+                const passwordField = document.getElementById('newPassword');
+                const passwordIcon = document.getElementById('password-icon');
+                if (passwordField.type === 'password') {
+                    passwordField.type = 'text';
+                    passwordIcon.classList.remove('fa-eye');
+                    passwordIcon.classList.add('fa-eye-slash');
+                } else {
+                    passwordField.type = 'password';
+                    passwordIcon.classList.remove('fa-eye-slash');
+                    passwordIcon.classList.add('fa-eye');
+                }
+            }
+        </script>
+    </div>
+</body>
+
+</html>

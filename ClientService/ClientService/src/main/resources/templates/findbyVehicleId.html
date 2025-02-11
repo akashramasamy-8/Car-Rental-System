@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Car By ID</title>
+    
+    <style>
+		/* Base Reset */
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+
+		/* General Body Styling */
+		body {
+			font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+			background: linear-gradient(120deg, #89f7fe, #66a6ff);
+			color: #333;
+			line-height: 1.6;
+			padding: 20px;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			min-height: 100vh;
+		}
+
+		/* Header Styling */
+		h1 {
+			text-align: center;
+			margin-bottom: 20px;
+			color: #fff;
+			font-size: 36px;
+			text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+		}
+
+		/* Form Container Styling */
+		.form-container {
+			width: 100%;
+			max-width: 500px;
+			padding: 25px;
+			background-color: rgba(255, 255, 255, 0.9);
+			box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+			border-radius: 10px;
+		}
+
+		/* Form Styling */
+		form {
+			display: flex;
+			flex-direction: column;
+		}
+
+		label {
+			margin: 15px 0 8px;
+			font-size: 18px;
+			font-weight: 600;
+			color: #333;
+		}
+
+		select {
+			padding: 12px;
+			font-size: 18px;
+			border: 1px solid #ccc;
+			border-radius: 5px;
+			transition: border-color 0.3s ease;
+		}
+
+		select:focus {
+			border-color: #4CAF50;
+			outline: none;
+			box-shadow: 0 0 8px rgba(76, 175, 80, 0.3);
+		}
+
+		button[type="submit"] {
+			margin-top: 20px;
+			padding: 12px 20px;
+			font-size: 18px;
+			color: white;
+			background-color: #4CAF50;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			transition: background-color 0.3s ease, transform 0.2s ease;
+			box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+		}
+
+		button[type="submit"]:hover {
+			background-color: #45a049;
+			transform: translateY(-2px);
+		}
+		/* Video background */
+        .background-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ensures video covers the whole background */
+            z-index: -1; /* Makes sure the video is behind other content */
+        }
+
+		/* Responsive Design */
+		@media (max-width: 768px) {
+			h1 {
+				font-size: 28px;
+			}
+
+			label,
+			select,
+			button[type="submit"] {
+				font-size: 16px;
+			}
+		}
+	</style>
+</head>
+<body>
+<!-- Background Video -->
+<video class="background-video" autoplay loop muted>
+    <source src="/images/login.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+</video>
+    <h1>Find Car by Vehicle ID</h1>
+    <form th:action="@{/findCarsByID}" method="get">
+        <label for="carId">Enter Vehicle ID:</label>
+        <input type="number" id="carId" name="carId" th:value="${carId}">
+        <p th:if="${validationErrors?.containsKey('carId')}" 
+           th:text="${validationErrors.carId}" 
+           style="color: red;"></p>
+        <button type="submit">Find Car</button>
+    </form>
+</body>
+</html>

@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login - CarCaddy</title>
+    <!-- Google Font Link -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #7d2ae8;
+            padding: 30px;
+            position: relative;
+        }
+
+        /* Video Background Styling */
+        .video-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ensures the video covers the entire background */
+            z-index: -1; /* Keeps the video behind other content */
+        }
+
+        .navbar {
+            background-color: rgba(31, 31, 31, 0.8); /* Slightly transparent navbar */
+            color: #fff;
+            padding: 15px 10%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+        }
+        
+        .navbar .brand {
+            font-size: 1.5em;
+            font-weight: bold;
+            color:#5b13b9;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            margin-left: 15px;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #007bff;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #007bff;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .container {
+            position: relative;
+            max-width: 1000px;  /* Increase the width to 1000px or any other value */
+            width: 100%;
+            background: #fff;
+            padding: 40px 30px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+            perspective: 2700px;
+            margin: 0 auto; /* Centers the container */
+        }
+        
+        .login-container {
+            background-color: rgba(247, 245, 245, 0.9); /* Slightly transparent background for form */
+            padding: 40px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            width: 100%;
+            max-width: 700px;
+            text-align: center;
+            perspective: 2700px;
+            margin: 0 auto; /* Centers the container */
+        }
+
+        h1 {
+            color:#5b13b9;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #151414;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            background-color: #dcdbdb;
+            border: black;
+            color: #1b1a1a;
+            border-radius: 5px;
+        }
+
+        .login-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color:#5b13b9;
+            color: #fff;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+        }
+
+        .login-btn:hover {
+            background-color:#5b13b9;
+            transform: translateY(-5px);
+            box-shadow: 0 4px 10px rgba(151, 56, 229, 0.6);
+            outline: 2px solid#5b13b9;
+        }
+
+        .register-link {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .register-link:hover {
+            text-decoration: underline;
+        }
+
+        .error {
+            color: #ff4d4d;
+            font-size: 0.9em;
+            font-weight: bold;
+            margin-top: -10px;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .error {
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-5px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .error-message, .success-message {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .error-message {
+            background-color: #ff4d4d;
+            color: #fff;
+        }
+
+        /* Additional styles for form transitions and input focus effects */
+        .cover .text .text-1,
+        .cover .text .text-2 {
+            z-index: 20;
+            font-size: 26px;
+            font-weight: 600;
+            color: #fff;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Video -->
+    <video class="video-background" autoplay muted loop>
+        <source src="/images/login.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <div class="navbar">
+        <div class="brand">CarCaddy</div>
+        <div class="nav-links">
+            <a href="http://localhost:8080/admin#hero">Home</a>
+            <a href="http://localhost:8080/admin#services">Service</a>
+        </div>
+    </div>
+
+    <div class="login-container">
+        <h1>Admin Login</h1>
+        <form th:action="@{/login}" th:object="${myadminlogin}" method="POST">
+            <div style="text-align: left;">
+                <label for="email">Enter Email</label>
+                <input type="email" id="email" name="email" th:field="*{email}" placeholder="Enter email">
+                <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error"></span>
+            </div>
+            <div style="text-align: left;">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" th:field="*{password}" placeholder="Enter Password">
+                <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error"></span>
+            </div>
+            <button type="submit" class="login-btn">Login</button>
+            <div class="error-message" th:if="${loginError}" th:text="${loginError}"></div>
+            <div><br/>
+            <div class="text sign-up-text">Don't have an account? <a href="/register" class="register-link">Signup now</a></div>
+        </div>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CCD</title>
+    <style>
+
+/* Services Section */
+.services {
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.services h1 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    color:white;
+}
+
+.cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.card {
+    background: white;
+    padding: 20px;
+    width: 280px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+}
+
+.card button {
+    background: #3498db;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    margin: 0 15px;
+}
+
+.nav-links a:hover {
+    text-decoration: underline;
+}
+.card img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+.card button:hover {
+    background: #2980b9;
+}
+.services-heading1{
+    margin-top: 10.4vw;
+    /* background-color: green; */
+}
+.services-section {
+    flex-wrap: wrap; /* Allow services to wrap to a new line */
+}
+.service-four-border, .service-five-border {
+    flex: 1 1 30%; /* These will also take 30% of the width and move to the next line */
+    margin: 10px;
+}
+
+.service-four{
+    position: relative;
+    overflow: hidden;
+    width: 22vw;
+    height: 60vh;
+    border-radius: 15px;
+    background-image: url(/images/car_image.png);
+    background-position: center;
+    background-size: cover;
+}
+.layer-four{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content:space-between;
+    align-items:center;
+    width: 18vw;
+    height: 3.5vw;
+    top: 35%;
+    left: 10%;
+    background:linear-gradient(to bottom,#dda0dde3,#d8bfd8e3);
+    z-index: 9;
+    backdrop-filter: blur(1px);
+    border-radius: 24px;
+    overflow: hidden;
+    transition: 0.2s;
+}
+.layer-four:hover{
+    height:11vw ;
+}
+.service-five{
+    position: relative;
+    overflow: hidden;
+    width: 22vw;
+    height: 60vh;
+    border-radius: 15px;
+    background-image: url(/images/employee.png);
+    background-position: center;
+    background-size: cover;
+}
+.layer-five{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content:space-between;
+    align-items:center;
+    width: 18vw;
+    height: 3.5vw;
+    top: 35%;
+    left: 10%;
+    background:linear-gradient(to bottom,#dda0dde3,#d8bfd8e3);
+    z-index: 9;
+    backdrop-filter: blur(1px);
+    border-radius: 24px;
+    overflow: hidden;
+    transition: 0.2s;
+}
+.layer-five:hover{
+    height:11vw ;
+}
+    </style>
+    <link rel="stylesheet" type="text/css" href="/css/styles.css">
+    <!-- AOS CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
+    
+</head>
+<body>
+    <div class="main" id="main">
+        <div class="nav-bar " id="nav-bar">
+            <div class="nav-left" onclick="reload()">
+                <div class="company-name">
+                    <h1 data-aos="fade-right">carcaddy</h1>
+                </div>
+                <div class="descrip">
+                    <p data-aos="fade-right">One stop solution for all range of vehicles....</p>
+                </div>
+            </div>
+            <div class="nav-middle">
+                <a class="onelink" href="#hero" data-aos="fade-left">home</a>
+                <!-- <a class="twolink" href="#about" data-aos="fade-left">about</a> -->
+                <a class="threelink" href="#services" data-aos="fade-left">services</a>
+                <!-- <a class="threelink" href="#contact" data-aos="fade-left">contact us</a> -->
+            </div>
+            <div class="nav-right">
+    <button class="login" id="login" data-aos="fade-left">Login</button>
+    <button class="sign-up" id="sign-up" data-aos="fade-left">Sign Up</button>
+</div>
+
+<script>
+  document.getElementById('login').addEventListener('click', () => {
+    window.location.href = 'http://localhost:8080/login'; 
+  });
+
+  document.getElementById('sign-up').addEventListener('click', () => {
+    window.location.href = 'http://localhost:8080/register'; 
+  });
+</script>
+
+
+            </div>
+        </div>
+        <div class="hero" id="hero">
+            <div class="video-container">
+                <video autoplay muted loop class="hero-video">
+                  <source src="/images/Recording.mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+              </div> 
+			
+			  <div class="left-section">
+			    <div class="left-section-one">
+			      <div class="heading-one">
+			        <h2 data-aos="fade-left">WELCOME ALL TO THE<br>ADMIN PAGE</h2>
+			      </div>
+			      <div class="paragraph">
+			        <span class="pfpara"></span>
+                    <br>
+			        <span class="pspara"></span>
+                    <br>
+			        <span class="ptpara"></span>
+			      </div>
+			    </div>
+			    <div class="left-section-two">
+			      <a href="#services">
+			        <button class="start-today">Start Today</button>
+			      </a>
+			      <button class="registration" onclick="window.location.href='/signup';">Registration</button>
+			    </div>
+			  </div>
+			</div>
+
+        <!-- <div class="about" id="about">
+            <div class="about-left-section">
+                <div class="about-heading">
+                    <h2 data-aos="fade-left">about us... <i class="fa-solid fa-paw"></i> <i class="fa-solid fa-paw"></i></h2>
+                </div>
+                <div class="about-details-section">
+                    <div class="abt-details">
+                        <div class="first-details-one">
+                            <h4 data-aos="fade-left">Our Drive for Innovation: <i class="fa-solid fa-paw"></i></h4>
+                        </div>
+                        <div class="second-details-two">
+                            <p data-aos="fade-left">Our journey began with a shared passion for automotive technology and a vision to simplify the driving experience. We believe that technology should enhance the driving experience, not complicate it. Our car automation system is born from this belief.</p>
+                        </div>
+                    </div>
+                    <div class="abt-details">
+                        <div class="first-details-one">
+                            <h4 data-aos="fade-left">A Smarter Drive:<i class="fa-solid fa-paw"></i></h4>
+                        </div>
+                        <div class="second-details-two">
+                            <p data-aos="fade-left">Our system is more than just a collection of features; it's an intelligent partner on the road. We strive to create a seamless and intuitive driving experience, where technology works in harmony with the driver.</p>
+                        </div>
+                    </div>
+                    <div class="abt-details">
+                        <div class="first-details-one">
+                            <h4 data-aos="fade-left">Our Dedicated Team: <i class="fa-solid fa-paw"></i></h4>
+                        </div>
+                        <div class="second-details-two">
+                            <p data-aos="fade-left">Behind every line of code and every innovative feature is a team of dedicated engineers and designers. We are committed to pushing the boundaries of automotive technology, ensuring safety, comfort, and convenience for every driver.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="about-right-section">
+                <div class="about-image" data-aos="fade-right">
+
+                </div>
+            </div>
+        </div>  -->
+        <section class="services">
+        <h1 data-aos="fade-left">Our Services</h1>
+        <div class="cards" data-aos="fade-left">
+            <div class="card" >
+                <img src="/images/drive.jpg" alt="Delete Vehicle Details" >
+                <h2 data-aos="fade-left">Car Management Module</h2>
+                <p data-aos="fade-right">Manage your cars efficiently</p>
+            </div>
+            <div class="card">
+                <img src="/images/b4.jpg" alt="Delete Vehicle Details">
+                <h2 data-aos="fade-left">Customer Management Module</h2>
+                <p data-aos="fade-right">Manage your customers</p>
+            </div>
+            <div class="card">
+                <img src="/images/b2.avif" alt="Delete Vehicle Details">
+                <h2 data-aos="fade-left">Employee Management Module</h2>
+                <p data-aos="fade-right">Manage all your employees at once</p>
+            </div>
+            <div class="card">
+                <img src="/images/car_image.png" alt="Delete Vehicle Details">
+                <h2 data-aos="fade-left">Maintenance Management System</h2>
+                <p data-aos="fade-right">Maintain all your vehicles easily.</p>
+            </div>
+            <div class="card">
+                <img src="/images/b3.png" alt="Delete Vehicle Details">
+                <h2 data-aos="fade-left">Rental Management System</h2>
+                <p data-aos="fade-right">Maintain all your rents at once.</p>
+            </div>
+            
+        </div>
+    </section>
+    
+        <div class="contact" id="contact">
+            <div class="contact-left-section">
+                <div class="contactme-heading">
+                    <h2 data-aos="fade-right">contact us</h2>
+                </div>
+                <div class="email-number-social">
+                    <div class="email">
+                        <i i class="fa fa-envelope" style="color: #ff0000;"></i>
+                        <p data-aos="fade-right">carcaddyofficial@gmail.com</p>
+                    </div>
+                    <div class="number">
+                        <i class="fa-solid fa-phone" style="color: #ff0000;"></i>
+                        <p data-aos="fade-right">8985412563</p>
+                    </div>
+                    
+                    <div class="feedback">
+                        <i class="fa fa-wpforms" aria-hidden="true" style="color: #ff0000;"></i>
+                        <p data-aos="fade-right"><a href = "https://docs.google.com/forms/d/e/1FAIpQLSe2TxoB74r3Qhi3UcKc4ahmfcI-pw-HfZ2FCxxndHwosmL0zA/viewform" target="_blank" >Feedback Form </a></p>
+                    </div>
+                    <div class="social">
+                        <div class="facebook">
+                            <a href="#" data-aos="fade-right"><i class="fa-brands fa-facebook"></i></a>
+                        </div>
+                        <div class="insta">
+                            <a href="#" data-aos="fade-right"><i class="fa-brands fa-instagram"></i></a>
+                        </div>
+                        <div class="linkdin">
+                            <a href="#" data-aos="fade-right"><i class="fa-brands fa-linkedin"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!--<div class="qr-container">
+                    <canvas id="qr-code"></canvas>
+                    <p>Scan the QR code to download the brochure.</p>
+                  </div>-->
+
+            
+             </div>
+            <div class="contact-right-section">
+                <form action="#" name = "submit-to-google-sheet">
+                    <input data-aos="fade-left" type="text" name="Name" placeholder="Your Name" required>
+                    <input data-aos="fade-left" type="email" name="Email" id="email" placeholder="Your Email">
+                    <textarea  data-aos="fade-left" name="Message" id="message" placeholder="Your message"></textarea>
+                    <button data-aos="fade-left" type="submit" class="btn-submit">Submit</button>
+                </form>
+                <span id="msg"></span>
+            </div> 
+        
+        <section class="footer" id="footer">
+    <div class="footer-row">
+        <div class="footer-col">
+            <h4>Info</h4>
+            <ul class="links">
+                <li><a href="#about">About Us</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h4>Explore</h4>
+				<ul class="links">
+				    <li><a href="http://localhost:8080/commingsoon">Find a Car</a></li>
+				    <li><a href="http://localhost:8080/commingsoon">Car Types</a></li>
+				    <li><a href="http://localhost:8080/commingsoon">Pick-up/Drop-off Locations</a></li>
+				    <li><a href="http://localhost:8080/commingsoon">Deals & Offers</a></li>
+				    <li><a href="http://localhost:8080/commingsoon">Manage Booking</a></li>
+				    <li><a href="http://localhost:8080/commingsoon">FAQs</a></li>
+				</ul>
+        </div>
+        <div class="footer-col">
+            <h4>Legal</h4>
+				<ul class="links">
+				    <li><a href="http://localhost:8080/commingsoon">Rental Agreement</a> </li>
+				    <li><a href="http://localhost:8080/commingsoon">Privacy Policy</a></li>
+				    <li><a href="http://localhost:8080/commingsoon">Terms of Use</a> </li>
+				    <li><a href="http://localhost:8080/commingsoon">Cookie Policy</a> </li>
+				    <li><a href="http://localhost:8080/commingsoon">Liability Waiver</a></li>
+				    <li><a href="http://localhost:8080/commingsoon">Disclaimer</a> </li>
+				    <li><a href="http://localhost:8080/commingsoon">Legal FAQs</a> </li>
+				    <li><a href="http://localhost:8080/commingsoon">Legal Contact</a></li>
+				</ul>
+        </div>
+        <div class="footer-col">
+		    <h4>Scan to View Brochure</h4>
+		    <div class="qr-container">
+		        <img src="/images/CARCADDY_BROCHURE.png" alt="QR Code for Brochure">
+		        <p>Scan the QR code to access our brochure.</p>
+		    </div>
+		</div>
+
+    </div>
+      <div class="copyright">
+    <p>Copyright &copy; CarCaddy. All Rights Reserved <i class="fa-solid fa-heart" style="color: red;"></i></p>
+</div>
+</section>
+
+   
+    <script src="https://kit.fontawesome.com/77e08a601e.js" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+
+    <script src="/js/script.js"></script>
+    <script>
+  const scriptURL = 'https://script.google.com/macros/s/AKfycbw7aldsRgo5RI_xEk_TL2OFtAOjrkIpf4GpAzVrJ8BRJkM8d2aglmkZ_P-erV4lnd7_AA/exec'
+  const form = document.forms['submit-to-google-sheet']
+  const msg = document.getElementById("msg")
+
+  form.addEventListener('submit', e => {
+    e.preventDefault()
+    fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+      .then(response => {
+			msg.innerHTML = "We received your message. Our executive will get back to you. Thank you for choosing PetCarePal...."
+			setTimeout(function() {
+				msg.innerHTML = ""
+				},5000)
+			form.reset()
+})
+      .catch(error => console.error('Error!', error.message))
+  })
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+<script>
+    AOS.init({
+        duration: 1000,  // Animation speed (in ms)
+        once: false,     // Allows animations to trigger again when scrolling up
+        mirror: true,    // Repeats animation when scrolling back up
+    });
+</script>
+
+
+</body>
+</html>

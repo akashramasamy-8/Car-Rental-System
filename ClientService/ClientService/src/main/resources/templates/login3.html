@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Customer Login</title>
+    <style>
+     
+body {
+   font-family: Arial, sans-serif;
+   margin: 0;
+   padding: 0;
+   line-height: 1.6;
+   background-color: #f9f9f9;
+   color: #333;
+}
+   * { /* This is the crucial change */
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
+}
+.header {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   background: #343a40;
+   padding: 1rem 2rem;
+   color: #fff;
+   padding: 6px
+}
+
+.logo {
+   font-size: 1.5rem;
+   font-weight: bold;
+   color: #ffc107;
+}
+
+.navbar .menu {
+   list-style: none;
+   display: flex;
+   gap: 1.5rem;
+}
+
+.navbar .menu li {
+   position: relative;
+}
+
+.navbar .menu a {
+   text-decoration: none;
+   color: #fff;
+   font-size: 1rem;
+   padding: 0.5rem 1rem;
+   border-radius: 5px;
+   transition: background-color 0.3s;
+}
+
+.navbar .menu a:hover {
+   background-color: #ffc107;
+   color: #343a40;
+}
+
+/* Dropdown */
+.dropdown-menu {
+   display: none;
+   position: absolute;
+   background: #fff;
+   color: #333;
+   list-style: none;
+   padding: 0.5rem 0;
+   border: 1px solid #ddd;
+   top: 2.5rem;
+   left: 0;
+   z-index: 10;
+   border-radius: 5px;
+}
+/* Video background */
+        .background-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ensures video covers the whole background */
+            z-index: -1; /* Makes sure the video is behind other content */
+        }
+.dropdown-menu li {
+   padding: 0.5rem 1rem;
+}
+
+.dropdown-menu li a {
+   color: #343a40; /* Default visible text color */
+   background: #343a40; /* Default background color */
+   display: block; /* Ensures clickable area is full width */
+   transition: background-color 0.3s, color 0.3s;
+}
+
+.dropdown-menu li a:hover {
+   background: #f1f1f1; /* Hover background color */
+   color: #007bff; /* Hover text color */
+}
+
+.dropdown-menu.show {
+   display: block;
+}
+
+main {
+   max-width: 800px;
+   margin: 20px auto;
+   padding: 20px;
+   background-color: #fff;
+   border-radius: 8px;
+   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+   text-align: center;
+   color: #0077cc;
+   margin-bottom: 20px;
+}
+
+form {
+   display: flex;
+   flex-direction: column;
+   gap: 20px;
+}
+
+.form-row {
+   display: flex;
+   gap: 20px;
+   justify-content: space-between;
+}
+
+.form-group {
+   flex: 1;
+   display: flex;
+   flex-direction: column;
+}
+
+.full-width {
+   flex: 1 1 100%;
+}
+
+label {
+   font-weight: bold;
+   margin-bottom: 5px;
+   color: #0056b3;
+}
+
+input, select {
+   padding: 10px;
+   border: 1px solid #ccc;
+   border-radius: 4px;
+   font-size: 16px;
+}
+
+input:focus, select:focus {
+   outline: none;
+   border-color: #0077cc;
+   box-shadow: 0 0 5px rgba(0, 119, 204, 0.5);
+}
+
+.login-btn {
+   padding: 10px 20px;
+   background-color: #0077cc;
+   color: #fff;
+   border: none;
+   border-radius: 4px;
+   cursor: pointer;
+   font-size: 18px;
+   align-self: center;
+}
+
+.login-btn:hover {
+   background-color: #0056b3;
+}
+
+.error-message {
+        color: red;
+        font-size: 0.8em;
+}
+
+@media (max-width: 600px) {
+   .form-row {
+       flex-direction: column;
+   }
+}
+
+.sign-up-text {
+  font-size: 16px; /* Adjust font size as needed */
+  color: #333; /* Adjust text color as needed */
+  margin-top: 10px; /* Adjust margin as needed */
+  text-align: center; /* Center the text */
+}
+
+.sign-up-text a {
+  color: #007bff; /* Adjust link color as needed (e.g., blue) */
+  text-decoration: none; /* Remove underline from the link */
+}
+
+.sign-up-text a:hover {
+  text-decoration: underline; /* Add underline on hover */
+}
+        /* CSS styles here (same as in the provided register page) */
+    </style>
+</head>
+<body>
+<video class="background-video" autoplay loop muted>
+    <source src="/images/login.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+</video>
+<header class="header">
+    <div class="logo">CarCaddy</div>
+    <nav class="navbar">
+        <ul class="menu">
+            <li><a href="/home">Home</a></li>
+			<li><a href="/customer/register">Register</a></li>
+        </ul>
+    </nav>
+</header>
+<main>
+    <h2>Customer Login</h2>
+    <div id="success-message" style="color: red;" th:if="${errorMessage}">
+        <p th:text="${errorMessage}"></p>
+    </div>
+    <form th:action="@{/customer/login}" th:object="${loginRequest}" method="post">
+        <div class="form-row">
+            <div class="form-group full-width">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" th:field="*{email}" required>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group full-width">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" th:field="*{password}" required>
+            </div>
+        </div>
+        <div class="text sign-up-text">
+  Don't have an account? <a href='http://localhost:8080/customer/register'>Sign up now</a>
+</div>
+        <div class="form-row">
+            <button type="submit" class="login-btn">Login</button>
+        </div>
+    </form>
+</main>
+</body>
+</html>

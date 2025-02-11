@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vehicle List</title>
+    <style>
+        /* Base Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* General Body Styling */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(120deg, #89f7fe, #66a6ff);
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        /* Header Styling */
+        h2 {
+            text-align: center;
+            color: #fff;
+            font-size: 28px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Table Container */
+        .table-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            overflow-x: auto;
+        }
+
+        /* Table Styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 15px;
+            border: 1px solid #ddd;
+            text-align: center;
+            font-size: 16px;
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+            font-weight: 600;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:nth-child(odd) {
+            background-color: #fdfdfd;
+        }
+
+        tr:hover {
+            background-color: #e0f7fa;
+            color: #00796b;
+            cursor: pointer;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            th, td {
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h2 {
+                font-size: 18px;
+            }
+
+            table th, table td {
+                font-size: 12px;
+            }
+        }
+
+        /* Pagination Container Example */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .pagination button {
+            padding: 10px 15px;
+            margin: 0 5px;
+            border: none;
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .pagination button:hover {
+            background-color: #45a049;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <!-- Page Title -->
+    <h2>Car List</h2>
+
+    <!-- Vehicle List Table -->
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Vehicle ID</th>
+                    <th>Vehicle Type</th>
+                    <th>Vehicle Model</th>
+                    <th>Year of Manufacture</th>
+                    <th>License Plate Number</th>
+                    <th>Registration Certificate</th>
+                    <th>Fuel Type</th>
+                    <th>Mileage</th>
+                    <th>Start Kilometer</th>
+                    <th>End Kilometer</th>
+                    <th>Rent Rate</th>
+                    <th>Status</th>
+                    <th>Last Maintenance Date</th>
+                    <th>Next Maintenance Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Thymeleaf Dynamic Table Rows -->
+                <tr th:each="vehicle : ${vehicles}">
+                    <td th:text="${vehicle.carId}"></td>
+                    <td th:text="${vehicle.vehicleType}"></td>
+                    <td th:text="${vehicle.model}"></td>
+                    <td th:text="${vehicle.yearOfManufacture}"></td>
+                    <td th:text="${vehicle.licencePlateNumber}"></td>
+                    <td th:text="${vehicle.registrationCertificate}"></td>
+                    <td th:text="${vehicle.fuelType}"></td>
+                    <td th:text="${vehicle.mileage}"></td>
+                    <td th:text="${vehicle.startKm}"></td>
+                    <td th:text="${vehicle.endKm}"></td>
+                    <td th:text="${vehicle.rentRate}"></td>
+                    <td th:text="${vehicle.status}"></td>
+                    <td th:text="${vehicle.lastMaintenanceDate}"></td>
+                    <td th:text="${vehicle.nextMaintenanceDate}"></td>
+                    <td>
+                        <a th:href="@{'/bookingForm/' + ${vehicle.carId}}">
+                            <button class="book-btn">Book Car</button>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Optional Pagination -->
+    <div class="pagination">
+        <button onclick="alert('Previous Page')">Previous</button>
+        <button onclick="alert('Next Page')">Next</button>
+    </div>
+</body>
+</html>

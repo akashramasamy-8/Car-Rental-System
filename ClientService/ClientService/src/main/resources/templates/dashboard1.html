@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - CarCaddy</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: #f0f0f0;
+        }
+        .navbar {
+            background-color: #1f1f1f;
+            color: #fff;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+        }
+        .navbar .brand {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #007bff;
+        }
+        .navbar button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .navbar button:hover {
+            background-color: #007bff;
+        }
+        .dashboard-container {
+            margin: 20px auto;
+            width: 90%;
+        }
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .dashboard-header h1 {
+            font-size: 1.5em;
+            color: #007bff;
+        }
+        .dashboard-header button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .dashboard-header button:hover {
+            background-color: #007bff;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #1e1e1e;
+            border: 1px solid #333;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        th, td {
+            text-align: left;
+            padding: 15px;
+            border-bottom: 1px solid #333;
+            color: #f0f0f0;
+        }
+        th {
+            background-color: #2c2c2c;
+        }
+        tr:hover {
+            background-color: #333;
+        }
+        .view-button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .view-button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 12px rgba(0, 50, 255, 0.7); 
+            background-color: #0056b3; 
+            outline: 2px solid #007bff; 
+        }
+		.navbar {
+		            background-color: rgba(0, 0, 0, 0.85); 
+		            color: #fff;
+		            padding: 15px 10%;
+		            display: flex;
+		            justify-content: space-between;
+		            align-items: center;
+		            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+		        }
+		        .navbar .brand {
+		            font-size: 1.5em;
+		            font-weight: bold;
+		            color: #007bff; 
+		        }
+		        .nav-links a {
+		            color: #fff;
+		            text-decoration: none;
+		            margin-left: 15px;
+		            transition: color 0.3s, border-bottom 0.3s ease;
+		            position: relative;
+		        }
+		        .nav-links a::after {
+		            content: '';
+		            position: absolute;
+		            bottom: 0;
+		            left: 0;
+		            width: 0;
+		            height: 2px;
+		            background-color: #007bff; 
+		            transition: width 0.3s ease;
+		        }
+		        .nav-links a:hover {
+		            color: #007bff;
+		        }
+		        .nav-links a:hover::after {
+		            width: 100%; 
+		        }
+    </style>
+</head>
+<body>
+	<div class="navbar">
+	       <div class="brand">CarCaddy</div>
+	       <div class="nav-links">
+	           <a th:href="@{/}">Employee Management</a>
+	           <a href="#">Car Management</a>
+	           <a href="#">Customer Management</a>
+	           <a href="#">Rental Management</a>
+	           <a href="#">Reports</a>
+	       </div>
+	   </div>
+
+    <div class="dashboard-container">
+        
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Employee Id</th>
+					<th>Employee Name</th>
+                    <th>Date of Birth</th>
+                    <th>Email</th>
+					<th>Designation</th>
+                    <th>Account Type</th>
+                    <th>Date of Expiry</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody id="employee-data">
+                <tr th:each="employee : ${employees}">
+                    <td th:text="${employee.employeeId}"></td>
+					<td th:text="${employee.employeeName}"></td>
+                    <td th:text="${employee.dateOfBirth}"></td>
+                    <td th:text="${employee.employeeEmail}"></td>
+					<td th:text="${employee.designation}"></td>
+                    <td th:text="${employee.accountType}"></td>
+                    <td th:text="${employee.accountExpiryDate}"></td>
+                    <td th:text="${employee.status}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        // Function to handle logout
+        function logout() {
+            alert('Logging out...');
+            window.location.href = 'loginPage.html'; // Redirect to the login page
+        }
+
+        // Function to open profile
+        function openProfile() {
+            window.location.href = 'profile.html'; // Redirect to the login page
+        }
+          
+        // Populate the table on page load
+        // window.onload = populateTable;
+    </script>
+</body>
+</html>

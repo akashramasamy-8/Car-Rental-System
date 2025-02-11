@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Dashboard</title>
+    <style>
+        body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-image: url('/images/employeebg2.avif'); /* Replace with the path to your image */
+    background-size: cover;
+    background-position: center;
+    color: #f0f0f0;
+    height: 100vh;
+}
+
+.navbar {
+            background-color: rgba(31, 31, 31, 0.9);
+            color: #fff;
+            padding: 15px 10%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        .navbar .brand {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #5b13b9;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            margin-left: 15px;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #5b13b9;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #5b13b9;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        .update-button {
+            position: absolute;
+            top: 70px;
+            left: 90%;
+            padding: 10px 20px;
+            background-color: #581fa4;
+            color: #fff;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+            text-align: center;
+            text-decoration: none;
+        }
+        .update-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(158, 31, 200, 0.9);
+            background-color: #5b13b9;
+        }
+        .dashboard-container {
+            max-width: 600px;
+            margin: 50px auto;
+            background: rgba(204, 203, 203, 0.7);
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+            animation: fadeIn 1s ease-in-out;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .dashboard-container:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(160, 42, 192, 0.9);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #5b13b9;
+            font-size: 2em;
+            text-transform: uppercase;
+        }
+        .employee-details {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #444;
+            padding-bottom: 10px;
+            transition: background-color 0.3s ease;
+        }
+        .employee-details:hover {
+            background-color: #3898ed;
+        }
+        .employee-details label {
+            font-weight: bold;
+            display: inline-block;
+            width: 150px;
+            color: #0c0c0c;
+            font-size: 1.1em;
+        }
+        .employee-details span {
+            color: #191919;
+            font-size: 1.1em;
+        }
+        .logout-button {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: #5b13b9;
+            color: #fff;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+            text-align: center;
+            text-decoration: none;
+            margin-top: 30px;
+        }
+        .logout-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(202, 58, 231, 0.9);
+            background-color: #5b13b9;
+        }
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="brand">CarCaddy</div>
+        <div class="nav-links">
+            <a href="http://localhost:8080/home">Home</a>
+            <a href="http://localhost:8080/home#about">About</a>
+            <a href="http://localhost:8080/home#services">Service</a>
+            <a href="http://localhost:8080/home#contact">Contact</a>
+        </div>
+    </div>
+    <a th:href="@{/updateemployee/{id}(id=${employee.employeeId})}" class="update-button">Update</a>
+    
+    <div class="dashboard-container">
+        <h1>Welcome <span th:text="${employee.employeeName}"></span></h1>
+        <div class="employee-details">
+            <label>Employee ID:</label>
+            <span th:text="${employee.employeeId}"></span>
+        </div>
+        <div class="employee-details">
+            <label>Name:</label>
+            <span th:text="${employee.employeeName}"></span>
+        </div>
+        <div class="employee-details">
+            <label>Email:</label>
+            <span th:text="${employee.employeeEmail}"></span>
+        </div>
+		<div class="employee-details">
+		    <label>Account Type:</label>
+		    <span th:text="${employee.accountType}"></span>
+		</div>
+		<div class="employee-details">
+		    <label>Designation:</label>
+		    <span th:text="${employee.designation}"></span>
+        </div>
+		<div class="employee-details">
+		    <label>Date of Birth:</label>
+		    <span th:text="${employee.dateOfBirth}"></span>
+		</div>
+    </div>
+</body>
+</html>

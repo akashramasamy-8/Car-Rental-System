@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Register Customer</title>
+    <style>
+
+       * {
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
+}
+body {
+   font-family: Arial, sans-serif;
+   margin: 0;
+   padding: 0;
+   line-height: 1.6;
+   background-color: #f9f9f9;
+   color: #333;
+}
+.header {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   background: #343a40;
+   padding: 1rem 2rem;
+   color: #fff;
+   padding: 6px
+}
+
+.logo {
+   font-size: 1.5rem;
+   font-weight: bold;
+   color: #ffc107;
+}
+
+.navbar .menu {
+   list-style: none;
+   display: flex;
+   gap: 1.5rem;
+}
+
+.navbar .menu li {
+   position: relative;
+}
+
+.navbar .menu a {
+   text-decoration: none;
+   color: #fff;
+   font-size: 1rem;
+   padding: 0.5rem 1rem;
+   border-radius: 5px;
+   transition: background-color 0.3s;
+}
+
+.navbar .menu a:hover {
+   background-color: #ffc107;
+   color: #343a40;
+}
+
+main {
+   max-width: 800px;
+   margin: 20px auto;
+   padding: 20px;
+   background-color: #fff;
+   border-radius: 8px;
+   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+   text-align: center;
+   color: #0077cc;
+   margin-bottom: 20px;
+}
+
+form {
+   display: flex;
+   flex-direction: column;
+   gap: 20px;
+}
+
+.form-row {
+   display: flex;
+   gap: 20px;
+   justify-content: space-between;
+}
+
+.form-group {
+   flex: 1;
+   display: flex;
+   flex-direction: column;
+}
+
+.full-width {
+   flex: 1 1 100%;
+}
+
+label {
+   font-weight: bold;
+   margin-bottom: 5px;
+   color: #0056b3;
+}
+
+input, select {
+   padding: 10px;
+   border: 1px solid #ccc;
+   border-radius: 4px;
+   font-size: 16px;
+}
+
+input:focus, select:focus {
+   outline: none;
+   border-color: #0077cc;
+   box-shadow: 0 0 5px rgba(0, 119, 204, 0.5);
+}
+
+.register-btn {
+   padding: 10px 20px;
+   background-color: #0077cc;
+   color: #fff;
+   border: none;
+   border-radius: 4px;
+   cursor: pointer;
+   font-size: 18px;
+   align-self: center;
+}
+
+.register-btn:hover {
+   background-color: #0056b3;
+}
+
+.error-message {
+        color: red;
+        font-size: 0.8em;
+}
+
+.background-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 150%;
+            object-fit: cover; /* Ensures video covers the whole background */
+            z-index: -1; /* Makes sure the video is behind other content */
+        }
+
+@media (max-width: 600px) {
+   .form-row {
+       flex-direction: column;
+   }
+}</style>
+</head>
+<body>
+
+	<video class="background-video" autoplay loop muted>
+	    <source src="/images/login.mp4" type="video/mp4">
+	    Your browser does not support the video tag.
+	</video>
+<header class="header">
+    <div class="logo">CarCaddy</div>
+    <nav class="navbar">
+        <ul class="menu">
+			<li><a th:href="@{http://localhost:8080/home}">Home</a></li>
+            <li><a th:href="@{http://localhost:8080//login}">Login</a></li>
+        </ul>
+    </nav>
+</header>
+<main>
+    <h2>Customer Registration</h2>
+    <div id="success-message" style="color: green;" th:if="${message}">
+        <p th:text="${message}"></p>
+    </div>
+    <form id="registerForm" th:action="@{/customer/registeringCustomer}" th:object="${customer}" method="post">
+        <div class="form-row">
+            <div class="form-group">
+                <label for="firstName">First Name:</label>
+                <input type="text" id="firstName" name="firstName" th:field="*{firstName}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="lastName">Last Name:</label>
+                <input type="text" id="lastName" name="lastName" th:field="*{lastName}" required>
+            </div>
+        </div>
+        <div  class="form-row">
+            <div id="firstName-error" class="form-group" style="color: red;font-size: 0.8em;" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" ></div>
+            <div id="lastName-error" class="form-group" style="color: red;font-size: 0.8em;" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" ></div>
+
+        </div>
+        <div class="form-row">
+            <div class="form-group full-width">
+                <label for="mobile">Mobile Number:</label>
+                <input type="tel" id="mobile" name="mobile" th:field="*{mobile}" required>
+            </div>
+        </div>
+        <div class="form-row">
+            <div  class="form-row">
+                <div id="mobile-error" class="form-group" style="color: red;font-size: 0.8em;" th:if="${#fields.hasErrors('mobile')}" th:errors="*{mobile}" ></div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group full-width">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" th:field="*{email}" required>
+            </div>
+        </div>
+        <div class="form-row">
+            <div  class="form-row">
+                <div id="email-error" style="color: red;font-size: 0.8em;" class="form-group" th:if="${#fields.hasErrors('email')}" th:errors="*{email}" ></div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group full-width">
+                <label for="gender">Gender:</label>
+                <select id="gender" name="gender" th:field="*{gender}" required>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+            <div  class="form-row">
+                <div id="gender-error" style="color: red;font-size: 0.8em;" class="form-group" th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}" ></div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label for="loyaltyPoints">loyaltyPoints Points:</label>
+                <input type="number" id="loyaltyPoints" name="loyaltyPoints" th:field="*{loyaltyPoints}" min="0" required>
+            </div>
+            <div class="form-group">
+                <label for="blocklistStatus">blocklistStatus Status:</label>
+                <select id="blocklistStatus" name="blocklistStatus" th:field="*{blocklistStatus}" required>
+                    <option value="false" th:selected="${blocklistStatus == false}">Active</option>
+                    <option value="true" th:selected="${blocklistStatus == true}">Inactive</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-row">
+            <div  class="form-group">
+                <div id="loyaltyPoints-error" style="color: red;font-size: 0.8em;" class="form-group" th:if="${#fields.hasErrors('loyaltyPoints')}" th:errors="*{loyaltyPoints}" ></div>
+            </div>
+            <div  class="form-group">
+                <div id="blocklistStatus-error" style="color: red;font-size: 0.8em;" class="form-group" th:if="${#fields.hasErrors('blocklistStatus')}" th:errors="*{blocklistStatus}" ></div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" th:field="*{password}" required>
+            </div>
+            <div class="form-group">
+                <label for="repassword">Re-enter Password:</label>
+                <input type="password" id="repassword" name="repassword" required>
+            </div>
+        </div>
+        <div class="form-row">
+            <div  class="form-group">
+                <div id="password-error" style="color: red;font-size: 0.8em;" class="form-group" th:if="${#fields.hasErrors('password')}" th:errors="*{password}" ></div>
+            </div>
+        </div>
+        <div class="form-row">
+            <button type="submit" class="register-btn">Register</button>
+        </div>
+    </form>
+</main>
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Management Module</title>
+    <style>
+    .nav-right{
+	color: white;
+    font-size: 10px;
+    gap: 1vw; /* Adds space between login and sign-up buttons */
+}
+    </style>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <video autoplay loop muted class="video-background">
+        <source src="/images/sky.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <nav class="navbar">
+        <div class="logo">CarManagementModule</div>
+        <div class="nav-links">
+            <a href="http://localhost:8080/auth/adminDashboard">Home</a>
+            <a href="#services">Services</a>
+            <a href="#services">Range of Vehicles</a>
+        </div>
+        <div class="nav-right">
+			    <div class="header">
+			        <h1>Welcome, <span th:text="${username}"></span></h1>
+			    </div>
+			    <button class="logout-btn" onclick="window.location.href='http://localhost:8080/auth/adminDashboard'">Logout</button>
+			</div>
+    </nav>
+    
+    <section class="banner">
+        <div class="banner-container">
+            <img src="/images/b1.webp" alt="Banner 1">
+            <img src="/images/b2.avif" alt="Banner 2">
+            <img src="/images/b3.png" alt="Banner 3">
+            <img src="/images/b4.jpg" alt="Banner 4">
+            <img src="/images/b5.png" alt="Banner 5">
+        </div>
+    </section>
+    
+    <section class="services">
+        <h1>Our Services</h1>
+        <div class="cards">
+            <div class="card">
+                <img src="/images/drive.jpg" alt="Delete Vehicle Details">
+                <h2>Car Registration</h2>
+                <p>Register new vehicles into the system.</p>
+                <button onclick="window.open('http://localhost:8080/', '_blank')">Register Car</button>
+            </div>
+            <div class="card">
+                <img src="/images/b4.jpg" alt="Delete Vehicle Details">
+                <h2>Find All Vehicles</h2>
+                <p>View a complete list of all vehicles.</p>
+                <button onclick="window.open('http://localhost:8080/viewAllVehicles', '_blank')">View Vehicles</button>
+            </div>
+            <div class="card">
+                <img src="/images/b2.avif" alt="Delete Vehicle Details">
+                <h2>Find Vehicles by Type</h2>
+                <p>Search for vehicles by type.</p>
+                <button onclick="window.open('http://localhost:8080/viewbytype', '_blank')">Search by Type</button>
+            </div>
+            <div class="card">
+                <img src="/images/b3.png" alt="Delete Vehicle Details">
+                <h2>Find Vehicles by Status</h2>
+                <p>Look up vehicles by availability.</p>
+                <button onclick="window.open('http://localhost:8080/view', '_blank')">Search by Status</button>
+            </div>
+            <div class="card">
+                <img src="/images/bookcar.avif" alt="Delete Vehicle Details">
+                <h2>Update Vehicle Details</h2>
+                <p>Update existing vehicle records.</p>
+                <button onclick="window.open('http://localhost:8080/viewbyID', '_blank')">Update Vehicle</button>
+            </div>
+            <div class="card">
+                <img src="/images/maintain.webp" alt="Delete Vehicle Details">
+                <h2>Delete Vehicle Details</h2>
+                <p>Remove vehicles from the database.</p>
+                <button onclick="window.open('http://localhost:8080/viewbyVehicleID', '_blank')">Delete Vehicle</button>
+            </div>
+        </div>
+    </section>
+    <section class="services">
+        <h1>Our Range of Vehicles</h1>
+        <div class="cards">
+            <div class="card">
+                <img src="/images/car.avif" alt="Delete Vehicle Details">
+                <h2>Car</h2>
+                <p>Our Range of Cars</p>
+                <button onclick="window.open('http://localhost:8080/findCarsByVehicleType?vehicleType=Car', '_blank')">See All Cars</button>
+            </div>
+            <div class="card">
+                <img src="/images/bike.jpg" alt="Delete Vehicle Details">
+                <h2>Bikes</h2>
+                <p>Our Range of Bikes</p>
+                <button onclick="window.open('http://localhost:8080/findCarsByVehicleType?vehicleType=Bike', '_blank')">See All Bikes</button>
+            </div>
+            <div class="card">
+                <img src="/images/suv.jpg" alt="Delete Vehicle Details">
+                <h2>SUV</h2>
+                <p>Our Range of SUV's</p>
+                <button onclick="window.open('http://localhost:8080/findCarsByVehicleType?vehicleType=SUV', '_blank')">See All SUV's</button>
+            </div>
+            
+        </div>
+    </section>
+    <footer>
+        <p>&copy; 2024 Car Management Module. All rights reserved.</p>
+    </footer>
+
+    <script src="/js/scriptland.js"></script>
+</body>
+</html>

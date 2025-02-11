@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Profile - CarCaddy</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #121212;
+            color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+
+        .profile-container {
+            max-width: 900px;
+            margin: 50px auto;
+            background-color: #1f1f1f;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
+            padding: 30px;
+            display: flex;
+        }
+
+        .avatar-container {
+            flex: 1;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .avatar {
+            width: 150px;
+            height: 150px;
+            background-color: #007bff;
+            color: white;
+            font-size: 3rem;
+            font-weight: bold;
+            line-height: 150px;
+            border-radius: 50%;
+            margin: 0 auto;
+        }
+
+        .profile-info {
+            flex: 2;
+            padding: 20px;
+        }
+
+        .profile-info h5 {
+            color: #f0f0f0;
+            margin-top: 15px;
+        }
+
+        .profile-info p {
+            color: #c0c0c0;
+            margin-bottom: 10px;
+        }
+
+        .btn-back {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            text-align: center;
+            text-decoration: none;
+            transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+        }
+
+        .btn-back:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 123, 255, 0.9); 
+            background-color: #0056b3; 
+            outline: 2px solid #007bff; 
+            color: #c0c0c0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="profile-container">
+        <!-- Left Side: Avatar -->
+        <div class="avatar-container">
+            <div class="avatar" th:text="${employee.employeeName.substring(0, 1)}">A</div>
+            <h3 th:text="${employee.employeeName}" style="margin-top: 10px;">Employee Name</h3>
+        </div>
+
+        <!-- Right Side: Profile Data -->
+        <div class="profile-info">
+            <h5>Date of Birth</h5>
+            <p th:text="${employee.dateOfBirth}">01/01/1990</p>
+
+            <h5>Email</h5>
+            <p th:text="${employee.employeeEmail}">email@example.com</p>
+
+            <h5>Account Type</h5>
+            <p th:text="${employee.accountType}">Permanent</p>
+
+            <h5>Designation</h5>
+            <p th:text="${employee.designation}">Finance Manager</p>
+
+            <h5>Account Expiry Date</h5>
+            <p th:text="${employee.accountExpiryDate}">N/A</p>
+
+            <h5>Status</h5>
+            <p th:text="${employee.status}">Active</p>
+
+            <a href="/dashboard" class="btn-back">Back to Dashboard</a>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.4.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    // <script>
+    //     document.addEventListener("DOMContentLoaded", function () {
+    //         const employeeData = JSON.parse(localStorage.getItem("employeeData"));
+    // 
+    //         if (employeeData) {
+    //             document.querySelector(".avatar").textContent = employeeData.employeeName.charAt(0);
+    //             document.querySelector(".avatar-container h3").textContent = employeeData.employeeName;
+    // 
+    //             document.querySelector("p[th\\:text='${employee.dateOfBirth}']").textContent = employeeData.dateOfBirth;
+    //             document.querySelector("p[th\\:text='${employee.employeeEmail}']").textContent = employeeData.employeeEmail;
+    //             document.querySelector("p[th\\:text='${employee.accountType}']").textContent = employeeData.accountType;
+    //             document.querySelector("p[th\\:text='${employee.designation}']").textContent = employeeData.designation;
+    //             document.querySelector("p[th\\:text='${employee.accountExpiryDate}']").textContent =
+    //                 employeeData.accountExpiryDate || "N/A";
+    //             document.querySelector("p[th\\:text='${employee.status}']").textContent = employeeData.status;
+    //         }
+    //     });
+    // </script>
+</body>
+
+</html>

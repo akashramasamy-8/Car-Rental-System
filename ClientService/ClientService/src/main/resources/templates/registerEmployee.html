@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" xmlns:th="http://www.thymeleaf.org">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Register Employee - CarCaddy</title>
+	<link rel="stylesheet" href="navbar.html">
+	<style>
+		body {
+			margin: 0;
+			font-family: Arial, sans-serif;
+			color: #f0f0f0;
+			min-height: 100vh;
+			overflow-x: hidden;
+			position: relative;
+			background: url('/images/empbg.webp');
+			background-size: cover, contain;
+			background-repeat: no-repeat;
+			background-position: top center, bottom right;
+		}
+
+		.navbar {
+			background-color: #1f1f1f;
+			color: #fff;
+			padding: 15px 10%;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+		}
+
+		.navbar .brand {
+			font-size: 1.5em;
+			font-weight: bold;
+			color: #007bff;
+			/* Blue color for the brand */
+		}
+
+		.nav-links a {
+			color: #fff;
+			text-decoration: none;
+			margin-left: 15px;
+			transition: color 0.3s;
+			position: relative;
+		}
+
+		.nav-links a::after {
+			content: '';
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			width: 0;
+			height: 2px;
+			background-color: #007bff;
+			transition: width 0.3s ease;
+		}
+
+		.nav-links a:hover {
+			color: #007bff;
+		}
+
+		.nav-links a:hover::after {
+			width: 100%;
+		}
+
+		.form-container {
+			max-width: 600px;
+			margin: 101px auto;
+			background-color: rgba(226, 224, 224, 0.8);
+			border-radius: 10px;
+			padding: 30px;
+			box-shadow: 0 4px 10px rgba(198, 9, 245, 0.7);
+			transition: background-color 0.3s;
+		}
+
+		h1 {
+			color: #5b13b9;
+			text-align: center;
+			margin-bottom: 20px;
+		}
+
+		form label {
+			display: block;
+			margin-bottom: 8px;
+			font-size: 1.1em;
+			color: #070707;
+		}
+
+		form input,
+		form select {
+			width: 100%;
+			padding: 10px;
+			margin-bottom: 15px;
+			background-color: #f6f3f3;
+			border: none;
+			border-radius: 5px;
+			color: #474747;
+			font-size: 1em;
+			transition: box-shadow 0.3s;
+		}
+
+		form input:focus,
+		form select:focus {
+			box-shadow: 0 0 8px rgba(200, 33, 251, 0.8);
+			outline: none;
+		}
+
+		.btn-submit {
+			display: block;
+			width: 100%;
+			padding: 12px;
+			background-color: #5b13b9;
+			color: #fff;
+			font-weight: bold;
+			border: none;
+			border-radius: 5px;
+			font-size: 1em;
+			cursor: pointer;
+			transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+		}
+
+		.btn-submit:hover {
+			background-color: #5b13b9;
+			transform: translateY(-5px);
+			box-shadow: 0 4px 10px rgba(190, 12, 249, 0.6);
+			outline: 2px solid #5b13b9;
+		}
+
+		.error {
+			color: #ff4d4d;
+			/* Red color for errors */
+			font-size: 0.9em;
+			/* Slightly smaller than label text */
+			font-weight: bold;
+			/* Make it stand out */
+			margin-top: -10px;
+			/* Adjust spacing above the error message */
+			margin-bottom: 10px;
+			/* Space between error and next field */
+			display: block;
+			/* Ensure error messages appear on their own line */
+		}
+
+		.error {
+			color: #ff4d4d;
+			/* Red color for errors */
+			font-size: 0.9em;
+			/* Slightly smaller than label text */
+			font-weight: bold;
+			/* Make it stand out */
+			margin-top: -10px;
+			/* Adjust spacing above the error message */
+			margin-bottom: 10px;
+			/* Space between error and next field */
+			display: block;
+			/* Ensure error messages appear on their own line */
+		}
+
+		.error {
+			animation: fadeIn 0.3s ease-in-out;
+		}
+
+		@keyframes fadeIn {
+			from {
+				opacity: 0;
+				transform: translateY(-5px);
+			}
+
+			to {
+				opacity: 1;
+				transform: translateY(0);
+			}
+		}
+
+		.sidebar {
+			position: fixed;
+			/* Fix the sidebar on the left */
+			top: 60px;
+			/* Leave space for the navbar */
+			left: 0;
+			width: 220px;
+			height: 100%;
+			background-color: rgba(248, 244, 247, 0.85);
+			padding: 20px;
+			box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+			/* Subtle shadow for depth */
+			border-right: 2px solid #e6e6e6;
+			/* Border for light theme */
+			box-sizing: border-box;
+		}
+
+		.sidebar h2 {
+			color: #333;
+			/* Dark text color */
+			margin-bottom: 20px;
+			font-size: 18px;
+			font-weight: bold;
+		}
+
+		.sidebar a {
+			display: block;
+			color: #555;
+			/* Neutral link color */
+			padding: 12px 15px;
+			margin-bottom: 10px;
+			text-decoration: none;
+			border-radius: 5px;
+			/* Rounded corners */
+			background-color: #fff;
+			/* Light background for links */
+			box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+			/* Subtle shadow */
+			transition: all 0.3s ease-in-out;
+			font-size: 16px;
+		}
+
+		.sidebar a:hover {
+			background-color: #5b13b9;
+			/* Highlight color */
+			color: #fff;
+			/* White text on hover */
+			transform: translateX(5px);
+			/* Slide effect */
+			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+			/* More pronounced shadow */
+		}
+
+		.sidebar a:active {
+			transform: scale(0.98);
+			/* Slight press effect */
+		}
+
+		div.nav-links {
+			margin-right: 20px;
+		}
+
+		.success {
+			background-color: #4caf50;
+			color: #fff;
+			font-weight: bold;
+			margin-top: 20px;
+			padding: 10px;
+			border-radius: 5px;
+			text-align: center;
+		}
+
+		.successdiv {
+			margin-left: 160px;
+			margin-bottom: 0px;
+			margin-top: 27px;
+		}
+	</style>
+</head>
+
+<body>
+	<div>
+		<div class="navbar">
+			<div class="brand">CarCaddy</div>
+			<div class="nav-links">
+				<a href="http://localhost:8080/home">Home</a>
+				<a href="http://localhost:8080/home#services">Service</a>
+				<a href="http://localhost:8080/home#contact">Contact</a>
+			</div>
+		</div>
+	</div>
+	<div class="sidebar">
+		<!-- <h2>Navigation</h2> -->
+		
+		<a href="/registerEmployee">Register Employee</a>
+		<a href="/displayAllEmployee">View Employees</a>
+		<a href="/adminDashboard">Deactivate Employee</a>
+		<a href="/displayDeactivatedEmployees">View Deactivated Employees</a>
+
+	</div>
+
+	<div class="form-container">
+		<h1>Add Employee Info</h1>
+		<form th:action="@{/registerEmployee}" th:object="${employee}" method="post">
+
+			<label for="employeeName">Employee Name</label>
+			<input type="text" id="employeeName" th:field="*{employeeName}" name="employeeName"
+				placeholder="Enter Employee Name">
+			<span th:if="${#fields.hasErrors('employeeName')}" th:errors="*{employeeName}" class="error"></span>
+
+			<label for="dob">Date of Birth</label>
+			<input type="date" id="dob" name="dob" th:field="*{dateOfBirth}">
+			<span th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}" class="error"></span>
+
+
+			<label for="email">Email</label>
+			<input type="email" id="email" name="email" th:field="*{employeeEmail}" placeholder="Enter Email Address">
+			<span th:if="${#fields.hasErrors('employeeEmail')}" th:errors="*{employeeEmail}" class="error"></span>
+
+
+
+			<label for="accountType">Account Type</label>
+			<select id="accountType" th:field="*{accountType}">
+				<option value="Temporary">Temporary Account</option>
+				<option value="Permanent">Permanent Account</option>
+			</select>
+			<span th:if="${#fields.hasErrors('accountType')}" th:errors="*{accountType}" class="error"></span>
+
+
+			<label for="designation">Designation</label>
+			<select id="designation" th:field="*{designation}">
+				<option value="">--Select Designation--</option>
+				<option value="Vehicle Inspector">Vehicle Inspector</option>
+				<option value="Maintenance Technician">Maintenance Technician</option>
+				<option value="Finance Manager">Finance Manager</option>
+				<option value="General Manager (GM)">General Manager (GM)</option>
+				<option value="HR Manager">HR Manager</option>
+				<option value="Rental Agent">Rental Agent</option>
+			</select>
+			<span th:if="${#fields.hasErrors('designation')}" th:errors="*{designation}" class="error"></span>
+
+			<label for="date">Date Of Expiry</label>
+			<input type="date" id="date" name="date" th:field="*{accountExpiryDate}">
+
+			<label for="status">Status:</label>
+			<select id="status" th:field="*{status}">
+				<option value="">--Select Status--</option>
+				<option value="Active">Active</option>
+				<option value="Inactive">Inactive</option>
+			</select>
+			<span th:if="${#fields.hasErrors('status')}" th:errors="*{status}" class="error"></span>
+
+
+			<button type="submit" class="btn-submit">Submit</button>
+
+			<div class="successdiv">
+				<span th:if="${message != null}" th:text="${message}" class="success"></span>
+			</div>
+		</form>
+	</div>
+
+	<script>
+		// Get references to the select field and expiry date input field
+		const accountTypeSelect = document.getElementById("accountType");
+		const expiryDateInput = document.getElementById("date");
+
+		// Function to enable/disable the expiry date input based on account type
+		function toggleExpiryDate() {
+			if (accountTypeSelect.value === "Permanent") {
+				expiryDateInput.disabled = true;  // Disable expiry date if Permanent is selected
+			} else {
+				expiryDateInput.disabled = false; // Enable expiry date if Temporary is selected
+			}
+		}
+
+		// Call the toggleExpiryDate function when the page loads and whenever the account type changes
+		accountTypeSelect.addEventListener("change", toggleExpiryDate);
+
+		// Initialize the state on page load
+		window.onload = toggleExpiryDate;
+
+
+
+		/* Display Success Message */
+		const message = document.getElementById('message').innerText;
+		if (message) {
+			alert(message);
+		}
+
+		/* Display Error Message */
+		const error = document.getElementById('error').innerText;
+		if (error) {
+			alert(error);
+		}
+
+
+
+	</script>
+</body>
+
+</html>

@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Admin Dashboard - Employee Management</title>
+	<style>
+		body {
+			background-image: url('/images/deactivebg2.jpg');
+			background-size: cover;
+			background-repeat: no-repeat;
+			background-attachment: fixed;
+			font-family: Arial, sans-serif;
+			color: #f0f0f0;
+			margin: 0;
+			height: 100vh;
+			display: flex;
+			flex-direction: column;
+		}
+
+
+
+		h1 {
+			color: #5b13b9;
+			margin-bottom: 20px;
+		}
+
+		.form-group {
+			margin-bottom: 20px;
+			text-align: left;
+			/* background-color: rgba(255, 255, 255, 0.85); */
+			padding: 15px;
+			border-radius: 5px;
+
+		}
+
+
+
+		label {
+			display: block;
+			margin-bottom: 10px;
+			color: #111010;
+		}
+
+		input {
+			width: 100%;
+			padding: 10px;
+			margin-bottom: 10px;
+			background-color: #fefefe;
+			border: 1px solid #5b13b9;
+			color: #222121;
+			border-radius: 5px;
+			box-sizing: border-box;
+			/* Ensure padding doesn't affect width */
+		}
+
+		.search-btn,
+		.view-employee-btn,
+		.remove-btn {
+			color: #fff;
+			padding: 10px 20px;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			transition: background-color 0.3s;
+			font-size: 16px;
+			margin: 5px;
+		}
+
+		.search-btn {
+			background-color: #5b13b9;
+		}
+
+		.search-btn:hover {
+			background-color: #5b13b9;
+		}
+
+		.view-employee-btn {
+			background-color: #28a745;
+			position: absolute;
+			/* Position the button relative to the container */
+			top: 20px;
+			/* Adjust top position */
+			right: 20px;
+			/* Adjust right position */
+		}
+
+		.view-employee-btn:hover {
+			background-color: #218838;
+		}
+
+		.remove-btn {
+			background-color: #ff0000;
+		}
+
+		.remove-btn:hover {
+			background-color: #cc0000;
+		}
+
+		table {
+			width: 100%;
+			margin-top: 20px;
+			border-collapse: collapse;
+			border-spacing: 0;
+			box-sizing: border-box;
+			/* Aligns padding and borders */
+		}
+
+		table,
+		th,
+		td {
+			border: 1px solid #5b13b9;
+			color: #f0f0f0;
+		}
+
+		th,
+		td {
+			padding: 15px;
+			text-align: left;
+			vertical-align: middle;
+		}
+
+		th {
+			background-color: #c8c3c3;
+		}
+
+		td {
+			background-color: #d7d3d3;
+		}
+
+		.error-message,
+		.success-message {
+			margin-top: 20px;
+			padding: 10px;
+			border-radius: 5px;
+			text-align: center;
+		}
+
+		.error-message {
+			background-color: #ff4d4d;
+			color: #fff;
+		}
+
+		.success-message {
+			background-color: #4caf50;
+			color: #fff;
+		}
+
+		.navbar {
+			background-color: #1f1f1f;
+			color: #fff;
+			padding: 15px 10%;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+		}
+
+		.navbar .brand {
+			font-size: 1.5em;
+			font-weight: bold;
+			color: #007bff;
+			/* Blue color for the brand */
+		}
+
+		.nav-links a {
+			color: #fff;
+			text-decoration: none;
+			margin-left: 15px;
+			transition: color 0.3s;
+			position: relative;
+		}
+
+		.nav-links a::after {
+			content: '';
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			width: 0;
+			height: 2px;
+			background-color: #007bff;
+			transition: width 0.3s ease;
+		}
+
+		.nav-links a:hover {
+			color: #007bff;
+		}
+
+		.nav-links a:hover::after {
+			width: 100%;
+		}
+
+		.dashboard-container {
+			margin-top: 90px;
+			display: flex;
+			/* Enable flexbox for the content */
+			justify-content: center;
+			/* Horizontally center */
+			align-items: center;
+			/* Vertically center */
+			flex-grow: 1;
+			/* Ensure content takes available space */
+		}
+
+		.container {
+			width: 100%;
+			max-width: 600px;
+			background-color: rgba(255, 255, 255, 0.85);
+			padding: 20px;
+			border-radius: 10px;
+			box-shadow: 0 4px 15px rgba(0, 0, 0, 0.7);
+			text-align: center;
+			position: relative;
+			/* Make the container relative to position the button */
+		}
+
+		.employee-details {
+			background-color: rgba(245, 243, 243, 0.8);
+			/* Dark background for contrast */
+			color: #050505;
+			/* White text color for visibility */
+			padding: 15px;
+			border-radius: 5px;
+			margin-top: 20px;
+			box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+		}
+
+		.employee-details h2 {
+			color: #5b13b9;
+			/* Light blue for headings */
+		}
+
+		.employee-details p {
+			font-size: 16px;
+			color: #080808;
+			/* Lighter text color */
+		}
+
+		.employee-details strong {
+			color: #007bff;
+			/* Accent color for labels */
+		}
+
+
+		.view-employee-btn {
+			position: absolute;
+			/* Position the button relative to the container */
+			top: 20px;
+			/* Adjust the top position */
+			right: 20px;
+			/* Adjust the right position */
+		}
+
+		.view-deactivated-btn {
+			background-color: #ff9900;
+			/* Set a distinct color for this button */
+			color: #0a0a0a;
+			padding: 10px 20px;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			transition: background-color 0.3s;
+			font-size: 16px;
+			position: absolute;
+			/* Position it relative to the container */
+			top: 20px;
+			/* Distance from the top */
+			right: 20px;
+			/* Distance from the right */
+		}
+
+		.view-deactivated-btn:hover {
+			background-color: #e68a00;
+			/* Change color on hover */
+		}
+
+		.view-employee-btn {
+			background-color: #28a745;
+			color: #fff;
+			padding: 10px 20px;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			transition: background-color 0.3s;
+			font-size: 16px;
+			position: absolute;
+			/* Position it relative to the container */
+			top: 70px;
+			/* Adjust the top position to be below the "View All Deactivated Employees" button */
+			right: 20px;
+			/* Align with the "View All Deactivated Employees" button */
+		}
+
+		.view-employee-btn:hover {
+			background-color: #218838;
+		}
+
+		.heading {
+			margin-right: 10px;
+		}
+
+
+		.sidebar {
+			position: fixed;
+			/* Fix the sidebar on the left */
+			top: 60px;
+			/* Leave space for the navbar */
+			left: 0;
+			width: 220px;
+			height: 100%;
+			background-color: rgba(248, 244, 247, 0.85);
+			padding: 20px;
+			box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+			/* Subtle shadow for depth */
+			border-right: 2px solid #e6e6e6;
+			/* Border for light theme */
+			box-sizing: border-box;
+		}
+
+		.sidebar h2 {
+			color: #333;
+			/* Dark text color */
+			margin-bottom: 20px;
+			font-size: 18px;
+			font-weight: bold;
+		}
+
+		.sidebar a {
+			display: block;
+			color: #555;
+			/* Neutral link color */
+			padding: 12px 15px;
+			margin-bottom: 10px;
+			text-decoration: none;
+			border-radius: 5px;
+			/* Rounded corners */
+			background-color: #fff;
+			/* Light background for links */
+			box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+			/* Subtle shadow */
+			transition: all 0.3s ease-in-out;
+			font-size: 16px;
+		}
+
+		.sidebar a:hover {
+			background-color: #5b13b9;
+			/* Highlight color */
+			color: #fff;
+			/* White text on hover */
+			transform: translateX(5px);
+			/* Slide effect */
+			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+			/* More pronounced shadow */
+		}
+
+		.sidebar a:active {
+			transform: scale(0.98);
+			/* Slight press effect */
+		}
+	</style>
+
+</head>
+
+<body>
+	<div class="navbar">
+		<div class="brand">CarCaddy</div>
+		<div class="nav-links">
+			<a href="http://localhost:8080/adminDashboard">Home</a>
+			<a href="http://localhost:8080/admin#services">Service</a>
+			<!-- <a href="http://localhost:8080/home#contact">Contact</a> -->
+		</div>
+	</div>
+
+	<div class="sidebar">
+		<!-- <a href="/adminDashboard">Dashboard</a> -->
+		<a href="/registerEmployee">Register Employee</a>
+		<a href="/displayAllEmployee">View Employees</a>
+		<a href="/adminDashboard">Deactivate Employee</a>
+		<a href="/displayDeactivatedEmployees">View Deactivated Employees</a>
+	</div>
+
+
+
+	<div class="dashboard-container">
+		<div class="container">
+			<!-- View All Employees Button -->
+
+
+			<h1 class="heading">Deactivate Employee</h1>
+
+			<!-- Search Form -->
+			<form action="/searchEmployee" method="POST">
+				<div class="form-group">
+					<label for="employeeId">Enter Employee ID</label>
+					<input type="text" id="employeeId" name="employeeId" placeholder="Enter Employee ID">
+				</div>
+				<button type="submit" class="search-btn">Search</button>
+			</form>
+
+			<!-- Success or Error Messages -->
+			<div class="error-message" th:if="${error}" th:text="${error}"></div>
+			<div class="success-message" th:if="${message}" th:text="${message}"></div>
+
+			<!-- Employee Details -->
+			<div class="employee-details" id="employeeDetails" th:if="${employee != null}">
+				<h2>Employee Details</h2>
+				<p><strong>ID:</strong> <span th:text="${employee.employeeId}"></span></p>
+				<p><strong>Name:</strong> <span th:text="${employee.employeeName}"></span></p>
+				<p><strong>Date of Birth:</strong> <span th:text="${employee.dateOfBirth}"></span></p>
+				<p><strong>Email:</strong> <span th:text="${employee.employeeEmail}"></span></p>
+				<p><strong>Account Type:</strong> <span th:text="${employee.accountType}"></span></p>
+				<p><strong>Designation:</strong>
+					<span th:text="${employee.designation != null ? employee.designation : 'Not Assigned'}"></span>
+				</p>
+				<p><strong>Account Expiry Date:</strong>
+					<span
+						th:text="${employee.accountExpiryDate != null ? employee.accountExpiryDate : 'No Expiry'}"></span>
+				</p>
+				<p><strong>Status:</strong> <span th:text="${employee.status}"></span></p>
+				<!-- Remove Employee Form -->
+
+				<form action="/removeEmployee" method="POST">
+					<input type="hidden" name="employeeId" th:value="${employee.employeeId}">
+					<button type="submit" class="remove-btn">Remove Employee from Company</button>
+				</form>
+			</div>
+
+
+
+		</div>
+	</div>
+</body>
+
+</html>

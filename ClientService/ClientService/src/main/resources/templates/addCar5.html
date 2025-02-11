@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Car</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	   <!-- Bootstrap CSS -->
+	   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+	   <!-- Font Awesome -->
+	   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+	   <!-- Custom CSS -->
+	  
+    <style>
+		
+		
+		body {
+		           font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+		       }
+
+		       header {
+		           font-family: 'Montserrat', sans-serif;
+		           background: linear-gradient(90deg, #0d6efd, #6610f2);
+		           color: #fff;
+		           box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+		           position: sticky;
+		           top: 0;
+		           z-index: 1020;
+		       }
+
+		       header .nav-link {
+		           color: #fff;
+		           font-weight: 500;
+		           margin: 0 10px;
+		           transition: color 0.3s, background-color 0.3s;
+		       }
+
+		       header .nav-link:hover {
+		           background-color: rgba(255, 255, 255, 0.2);
+		           border-radius: 5px;
+		       }
+
+		       header .nav-link.active {
+		           color: #ffc107;
+		           background-color: rgba(255, 255, 255, 0.2);
+		           border-radius: 5px;
+		       }
+
+		       header h1 {
+		           font-size: 1.8rem;
+		           font-weight: bold;
+		           margin: 0;
+		       }
+			
+
+		       @media (max-width: 576px) {
+		           header h1 {
+		               font-size: 1.5rem;
+		           }
+
+		           header .nav {
+		               flex-direction: column;
+		               align-items: flex-start;
+		           }
+
+		           header .nav-link {
+		               margin: 5px 0;
+		           }
+		       }
+			
+			
+        .fs {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+       .fs h1 {
+            color: #007bff;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        .form-group label {
+            font-weight: bold;
+            color: #495057;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+        .btn-secondary {
+            background-color: #6c757d;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+        .alert {
+            margin-top: 20px;
+        }
+    </style>
+	<link rel="stylesheet" th:href="@{css/styles.css}">
+</head>
+<body>
+	<header class="py-3">
+	    <div class="container">
+	        <div class="d-flex justify-content-between align-items-center">
+	            <h1 class="mb-0">Carcaddy</h1>
+	            <nav>
+	                <ul class="nav">
+	                    <li class="nav-item"><a class="nav-link" th:href="@{/car/home}">Home</a></li>
+						<li class="nav-item"><a class="nav-link active" th:href="@{/car/addCar}">Add Car</a></li>
+	                    <li class="nav-item"><a class="nav-link" th:href="@{/car/allCar}">Car List</a></li>
+	                    <li class="nav-item"><a class="nav-link" th:href="@{/maintenance/all}">Maintenance List</a></li>
+	                  
+	                </ul>
+	            </nav>
+	        </div>
+	    </div>
+	</header>
+<div class="container fs">
+    <h1>Add New Car</h1>
+    
+    <!-- Global error message -->
+    <div th:if="${error}" class="alert alert-danger" role="alert">
+        <span th:text="${error}"></span>
+    </div>
+
+    <form th:action="@{/car/addCarDetails}" th:object="${car}" method="post">
+        <!-- Vehicle Type -->
+        <div class="form-group">
+            <label for="vehicleType">Vehicle Type:</label>
+            <input type="text" id="vehicleType" th:field="*{vehicleType}" class="form-control" required />
+            <small class="text-danger" th:if="${#fields.hasErrors('vehicleType')}" th:errors="*{vehicleType}"></small>
+        </div>
+
+        <!-- Model -->
+        <div class="form-group">
+            <label for="model">Model:</label>
+            <input type="text" id="model" th:field="*{model}" class="form-control" required />
+            <small class="text-danger" th:if="${#fields.hasErrors('model')}" th:errors="*{model}"></small>
+        </div>
+
+        <!-- Year of Manufacture -->
+        <div class="form-group">
+            <label for="yearOfManufacture">Year of Manufacture:</label>
+            <input type="number" id="yearOfManufacture" th:field="*{yearOfManufacture}" class="form-control" required />
+            <small class="text-danger" th:if="${#fields.hasErrors('yearOfManufacture')}" th:errors="*{yearOfManufacture}"></small>
+        </div>
+
+        <!-- Licence Plate Number -->
+        <div class="form-group">
+            <label for="licencePlateNumber">Licence Plate Number:</label>
+            <input type="text" id="licencePlateNumber" th:field="*{licencePlateNumber}" class="form-control" required />
+            <small class="text-danger" th:if="${#fields.hasErrors('licencePlateNumber')}" th:errors="*{licencePlateNumber}"></small>
+        </div>
+
+        <!-- Registration Certificate -->
+        <div class="form-group">
+            <label for="registrationCertificate">Registration Certificate:</label>
+            <input type="text" id="registrationCertificate" th:field="*{registrationCertificate}" class="form-control" required />
+            <small class="text-danger" th:if="${#fields.hasErrors('registrationCertificate')}" th:errors="*{registrationCertificate}"></small>
+        </div>
+
+        <!-- Fuel Type -->
+        <div class="form-group">
+            <label for="fuelType">Fuel Type:</label>
+            <input type="text" id="fuelType" th:field="*{fuelType}" class="form-control" required />
+            <small class="text-danger" th:if="${#fields.hasErrors('fuelType')}" th:errors="*{fuelType}"></small>
+        </div>
+
+        <!-- Mileage -->
+        <div class="form-group">
+            <label for="mileage">Mileage:</label>
+            <input type="number" step="0.01" id="mileage" th:field="*{mileage}" class="form-control" required />
+            <small class="text-danger" th:if="${#fields.hasErrors('mileage')}" th:errors="*{mileage}"></small>
+        </div>
+
+        <!-- Last Maintenance Date -->
+        <div class="form-group">
+            <label for="lastMaintenanceDate">Last Maintenance Date:</label>
+            <input type="date" id="lastMaintenanceDate" th:field="*{lastMaintenanceDate}" class="form-control" required />
+            <small class="text-danger" th:if="${#fields.hasErrors('lastMaintenanceDate')}" th:errors="*{lastMaintenanceDate}"></small>
+        </div>
+
+        <!-- Next Maintenance Date -->
+        <div class="form-group">
+            <label for="nextMaintenanceDate">Next Maintenance Date:</label>
+            <input type="date" id="nextMaintenanceDate" th:field="*{nextMaintenanceDate}" class="form-control" required />
+            <small class="text-danger" th:if="${#fields.hasErrors('nextMaintenanceDate')}" th:errors="*{nextMaintenanceDate}"></small>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-primary">Add Car</button>
+    </form>
+
+    <!-- Back to Car List -->
+    <a href="/car/allCar" class="btn btn-secondary mt-3">Back to Car List</a>
+</div>
+
+<script src="//code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="//stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

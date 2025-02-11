@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vehicle Registration Form</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <!-- Unicons -->
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+
+    <!-- Custom CSS -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #4070f4;
+        }
+        .container {
+            position: relative;
+            max-width: 900px;
+            width: 100%;
+            border-radius: 6px;
+            padding: 30px;
+            background-color: #fff;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+        }
+        .container header {
+            font-size: 20px;
+            font-weight: 600;
+            color: #333;
+            text-align: center;
+        }
+        .container header::before {
+            content: "";
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: -2px;
+            height: 3px;
+            width: 27px;
+            background-color: #4070f4;
+            border-radius: 8px;
+        }
+        .container form {
+            margin-top: 20px;
+        }
+        .form-section {
+            margin-bottom: 20px;
+        }
+        .form-section .title {
+            font-size: 16px;
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .fields {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .fields .input-field {
+            flex: 1 1 calc(33.33% - 15px);
+            display: flex;
+            flex-direction: column;
+        }
+        .input-field label {
+            font-size: 12px;
+            font-weight: 500;
+            color: #2e2e2e;
+        }
+        .input-field input, .input-field select {
+            outline: none;
+            font-size: 14px;
+            color: #333;
+            border-radius: 5px;
+            border: 1px solid #aaa;
+            padding: 0 15px;
+            height: 42px;
+            margin-top: 5px;
+        }
+        .input-field input:focus, .input-field select:focus {
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.13);
+        }
+        .input-field input[type="date"]:valid {
+            color: #333;
+        }
+        /* Video background */
+        .background-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ensures video covers the whole background */
+            z-index: -1; /* Makes sure the video is behind other content */
+        }
+        .form-section button {
+            margin-top: 20px;
+            width: 100%;
+            height: 45px;
+            background-color: #4070f4;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        .form-section button:hover {
+            background-color: #265df2;
+        }
+        @media (max-width: 750px) {
+            .fields .input-field {
+                flex: 1 1 calc(50% - 15px);
+            }
+        }
+        @media (max-width: 550px) {
+            .fields .input-field {
+                flex: 1 1 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+<!-- Background Video -->
+<video class="background-video" autoplay loop muted>
+    <source src="/images/login.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+</video>
+    <div class="container">
+        <header>Vehicle Registration</header>
+        <form th:action="@{/carregister}" th:object="${car}" method="post">
+            <!-- Vehicle Details Section -->
+            <div class="form-section">
+                <span class="title">Vehicle Details</span>
+                <div class="fields">
+                    <div class="input-field">
+                        <label for="vehicleType">Vehicle Type</label>
+                        <select th:field="*{vehicleType}">
+                            <option value="">Select type</option>
+                            <option value="Car">Car</option>
+                            <option value="SUV">SUV</option>
+                            <option value="Bike">Bike</option>
+                        </select>
+                        <p th:if="${validationErrors?.containsKey('vehicleType')}" 
+                           th:text="${validationErrors.vehicleType}" 
+                           style="color: red;"></p>
+                    </div>
+                    <div class="input-field">
+                        <label for="model">Model</label>
+                        <input type="text" th:field="*{model}" >
+                        <p th:if="${validationErrors?.containsKey('model')}" 
+                           th:text="${validationErrors.model}" 
+                           style="color: red;"></p>
+                    </div>
+                    <div class="input-field">
+                        <label for="email">Email ID</label>
+                        <input type="text" th:field="*{email}" placeholder="abc@gmail.com" >
+                        <p th:if="${validationErrors?.containsKey('email')}" 
+                           th:text="${validationErrors.email}" 
+                           style="color: red;"></p>
+                    </div>
+                    <div class="input-field">
+                        <label for="yearOfManufacture">Year of Manufacture</label>
+                        <input type="number" th:field="*{yearOfManufacture}" >
+                        <p th:if="${validationErrors?.containsKey('yearOfManufacture')}" 
+                           th:text="${validationErrors.yearOfManufacture}" 
+                           style="color: red;"></p>
+                    </div>
+                    <div class="input-field">
+                        <label for="licencePlateNumber">License Plate Number</label>
+                        <input type="text" th:field="*{licencePlateNumber}" placeholder="YYBH####ZZ" >
+                        <p th:if="${validationErrors?.containsKey('licencePlateNumber')}" 
+                           th:text="${validationErrors.licencePlateNumber}" 
+                           style="color: red;"></p>
+                    </div>
+                    <div class="input-field">
+                        <label for="registrationCertificate">Registration Certificate</label>
+                        <input type="text" th:field="*{registrationCertificate}" >
+                        <p th:if="${validationErrors?.containsKey('registrationCertificate')}" 
+                           th:text="${validationErrors.registrationCertificate}" 
+                           style="color: red;"></p>
+                    </div>
+                    <div class="input-field">
+                        <label for="fuelType">Fuel Type</label>
+                        <select th:field="*{fuelType}">
+                            <option value="">Select fuel type</option>
+                            <option value="Petrol">Petrol</option>
+                            <option value="Diesel">Diesel</option>
+                            <option value="Electric">Electric</option>
+                        </select>
+                        <p th:if="${validationErrors?.containsKey('fuelType')}" 
+                           th:text="${validationErrors.fuelType}" 
+                           style="color: red;"></p>
+                    </div>
+                    <div class="input-field">
+                        <label for="mileage">Mileage</label>
+                        <input type="number" step="0.01" th:field="*{mileage}" >
+                        <p th:if="${validationErrors?.containsKey('mileage')}" 
+                           th:text="${validationErrors.mileage}" 
+                           style="color: red;"></p>
+                    </div>
+                    <div class="input-field">
+                        <label for="startKm">Start KM</label>
+                        <input type="number" step="0.01" th:field="*{startKm}" >
+                        <p th:if="${validationErrors?.containsKey('startKm')}" 
+                           th:text="${validationErrors.startKm}" 
+                           style="color: red;"></p>
+                    </div>
+                    <div class="input-field">
+                        <label for="endKm">End KM</label>
+                        <input type="number" step="0.01" th:field="*{endKm}" >
+                        <p th:if="${validationErrors?.containsKey('endKm')}" 
+                           th:text="${validationErrors.endKm}" 
+                           style="color: red;"></p>
+                    </div>
+                    <div class="input-field">
+                        <label for="rentRate">Rent Rate</label>
+                        <input type="number" step="0.01" th:field="*{rentRate}" >
+                        <p th:if="${validationErrors?.containsKey('rentRate')}" 
+                           th:text="${validationErrors.rentRate}" 
+                           style="color: red;"></p>
+                    </div>
+                    <div class="input-field">
+                        <label for="status">Status</label>
+                        <select th:field="*{status}">
+                            <option value="">Select status</option>
+                            <option value="Available">Available</option>
+                            <option value="Unavailable">Unavailable</option>
+                        </select>
+                        <p th:if="${validationErrors?.containsKey('status')}" 
+                           th:text="${validationErrors.status}" 
+                           style="color: red;"></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Maintenance Details Section -->
+            <div class="form-section">
+                <span class="title">Maintenance Details</span>
+                <div class="fields">
+                    <div class="input-field">
+                        <label for="lastMaintenanceDate">Last Maintenance Date</label>
+                        <input type="date" th:field="*{lastMaintenanceDate}">
+                        <p th:if="${validationErrors?.containsKey('lastMaintenanceDate')}" 
+                           th:text="${validationErrors.lastMaintenanceDate}" 
+                           style="color: red;"></p>
+                    </div>
+                    <div class="input-field">
+                        <label for="nextMaintenanceDate">Next Maintenance Date</label>
+                        <input type="date" th:field="*{nextMaintenanceDate}">
+                        <p th:if="${validationErrors?.containsKey('nextMaintenanceDate')}" 
+                           th:text="${validationErrors.nextMaintenanceDate}" 
+                           style="color: red;"></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="form-section">
+                <button type="submit">Register Vehicle</button>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>

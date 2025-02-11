@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Register - CarCaddy</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            color: #f0f0f0;
+			min-height: 100vh; /* Change height to min-height to allow scrolling */
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+            position: relative;
+        }
+		video.video-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit:fill;
+    z-index: -1; /* Ensure video stays behind the content */
+}
+        .navbar {
+            background-color: rgba(31, 31, 31, 0.9);
+            color: #fff;
+            padding: 15px 10%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        .navbar .brand {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #007bff;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            margin-left: 15px;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #007bff;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #007bff;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+      
+
+.form-container {
+    max-width: 600px;
+    margin: 50px auto;
+    background-color: rgba(246, 245, 245, 0.8);
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
+    transition: background-color 0.3s;
+    z-index: 1;
+}
+
+        h1 {
+            color:#5b13b9;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        form label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 1.1em;
+            color: #0a0a0a;
+        }
+
+        form input, form select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            background-color: #dbd8d8;
+            border: none;
+            border-radius: 5px;
+            color: #474646;
+            font-size: 1em;
+            transition: box-shadow 0.3s;
+        }
+
+        form input:focus, form select:focus {
+            box-shadow: 0 0 8px rgba(150, 20, 206, 0.8);
+            outline: none;
+        }
+
+        .register-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color:#5b13b9;
+            color: #fff;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+        }
+
+        .register-btn:hover {
+            background-color: #5b13b9;
+            transform: translateY(-5px);
+            box-shadow: 0 4px 10px rgba(167, 11, 239, 0.6);
+            outline: 2px solid #5b13b9;
+        }
+
+        .login-link {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .login-link:hover {
+            text-decoration: underline;
+        }
+
+        .error {
+            color: #ff4d4d;
+            font-size: 0.9em;
+            font-weight: bold;
+            margin-top: -10px;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .error-message, .success-message {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .error-message {
+            background-color: #ff4d4d;
+            color: #fff;
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 60px;
+            left: 0;
+            width: 200px;
+            height: 100%;
+            background-color: #1f1f1f;
+            padding: 20px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+        }
+
+        .sidebar h2 {
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+
+        .sidebar a {
+            display: block;
+            color: #fff;
+            padding: 10px 0;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .sidebar a:hover {
+            background-color: #007bff;
+            padding-left: 10px;
+        }
+
+        div.nav-links {
+            margin-right: 20px;
+        }
+        .sign-up-text {
+    color: #0e0f0f;
+    text-decoration: none;
+    text-align: center;
+}
+
+.sign-up-text a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.sign-up-text a:hover {
+    text-decoration: underline;
+}
+
+        .register-link {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .register-link:hover {
+            text-decoration: underline;
+        }
+
+    </style>
+</head>
+<body>
+    <video autoplay muted loop class="video-background">
+        <source src="/images/login.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <div class="navbar">
+        <div class="brand">CarCaddy</div>
+        <div class="nav-links">
+            <a href="http://localhost:8080/admin#hero">Home</a>
+            <a href="http://localhost:8080/admin#services">Service</a>
+        </div>
+    </div>
+
+    <div class="form-container">
+        <h1>Admin Register</h1>
+        <form th:action="@{/register}" th:object="${admin}" method="post">
+            <div>
+                <label for="firstName">First Name</label>
+                <input type="text" id="firstName" th:field="*{firstName}" name="firstName" placeholder="Enter First Name">
+                <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" class="error"></span>
+            </div>
+            <div>
+                <label for="lastName">Last Name</label>
+                <input type="text" id="lastName" th:field="*{lastName}" name="lastName" placeholder="Enter Last Name">
+                <span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" class="error"></span>
+            </div>
+            <div>
+                <label for="email">Email</label>
+                <input type="email" id="email" th:field="*{email}" name="email" placeholder="Enter Email">
+                <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error"></span>
+            </div>
+            <div>
+                <label for="phoneNumber">Phone Number</label>
+                <input type="text" id="phoneNumber" th:field="*{phoneNumber}" name="phoneNumber" placeholder="Enter Phone Number">
+                <span th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}" class="error"></span>
+            </div>
+            <div>
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" th:field="*{username}" placeholder="Enter Username">
+                <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="error"></span>
+            </div>
+            <div>
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" th:field="*{password}" placeholder="Enter Password">
+                <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error"></span>
+            </div>
+            <button type="submit" class="register-btn">Register</button>
+            <div class="error-message" th:if="${registrationError}" th:text="${registrationError}"></div>
+            <br/><div class="text sign-up-text">Already have an account? <a href="/login" class="register-link">Login now</a></div>
+        </form>
+    </div>
+</body>
+</html>

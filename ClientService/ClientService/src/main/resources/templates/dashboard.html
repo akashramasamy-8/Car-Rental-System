@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Dashboard</title>
+    <style>
+        /* Basic styling for the page */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .header {
+            background-color: #333;
+            color: #fff;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        .navbar .menu {
+            list-style: none;
+            display: flex;
+            gap: 1rem;
+            margin: 0;
+            padding: 0;
+        }
+        .navbar .menu li a {
+            color: #fff;
+            text-decoration: none;
+        }
+        .navbar .menu li a:hover {
+            text-decoration: underline;
+        }
+        main {
+            padding: 2rem;
+            background-color: #fff;
+            margin: 2rem auto;
+            max-width: 600px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        p {
+            margin: 0.5rem 0;
+            font-size: 1rem;
+        }
+		.background-video {
+		            position: absolute;
+		            top: 0;
+		            left: 0;
+		            width: 100%;
+		            height: 100%;
+		            object-fit: cover; /* Ensures video covers the whole background */
+		            z-index: -1; /* Makes sure the video is behind other content */
+		        }
+    </style>
+</head>
+<body>
+	<video class="background-video" autoplay loop muted>
+	    <source src="/images/login.mp4" type="video/mp4">
+	    Your browser does not support the video tag.
+	</video>
+<header class="header">
+    <div class="logo">CarCaddy</div>
+    <nav class="navbar">
+        <ul class="menu">
+            <li th:if="${customer}">
+                <a th:text="${'Customer ID:'+customer.id}"></a>
+            </li>
+            <li th:if="${customer}">
+                <a th:href="@{/viewAllVehicles}">Cars</a>
+            </li>
+            <li th:if="${customer}">
+                <a th:href="@{/rent}">Book</a>
+            </li>
+            <li th:if="${customer}">
+                <a th:href="@{/update}">Update</a>
+            </li>
+            <li th:if="${customer}">
+                <a th:href="@{/logout}">Logout</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main>
+    <h1>Welcome, <span th:text="${customer.firstName}"></span> <span th:text="${customer.lastName}"></span>!</h1>
+    <p>Email: <span th:text="${customer.email}"></span></p>
+    <p>Mobile: <span th:text="${customer.mobile}"></span></p>
+    <p>Gender: <span th:text="${customer.gender}"></span></p>
+    <p>Loyalty Points: <span th:text="${customer.loyaltyPoints}"></span></p>
+    <p>Blocklist Status:
+        <span th:text="${customer.blocklistStatus ? 'Blocked' : 'Active'}"></span>
+    </p>
+</main>
+</body>
+</html>

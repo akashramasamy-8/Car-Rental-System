@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CarCaddy - Home</title>
+    <style>
+        /* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body and Font */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background: #f8f9fa;
+}
+
+/* Header */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #343a40;
+    padding: 1rem 2rem;
+    color: #fff;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #ffc107;
+}
+
+.navbar .menu {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+}
+
+.navbar .menu li {
+    position: relative;
+}
+
+.navbar .menu a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.navbar .menu a:hover {
+    background-color: #ffc107;
+    color: #343a40;
+}
+
+/* Dropdown */
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    background: #fff;
+    color: #333;
+    list-style: none;
+    padding: 0.5rem 0;
+    border: 1px solid #ddd;
+    top: 2.5rem;
+    left: 0;
+    z-index: 10;
+    border-radius: 5px;
+}
+
+.dropdown-menu li {
+    padding: 0.5rem 1rem;
+}
+
+.dropdown-menu li a {
+    color: #343a40; /* Default visible text color */
+    background: #343a40; /* Default background color */
+    display: block; /* Ensures clickable area is full width */
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.dropdown-menu li a:hover {
+    background: #f1f1f1; /* Hover background color */
+    color: #007bff; /* Hover text color */
+}
+
+.dropdown-menu.show {
+    display: block;
+}
+
+/* Main Content */
+.container {
+    max-width: 800px;
+    margin: 2rem auto;
+    background: #fff;
+    padding: 2rem;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.container h1 {
+    text-align: center;
+    margin-bottom: 1rem;
+    color: #343a40;
+}
+
+.container p {
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-size: 1.1rem;
+}
+
+.features {
+    margin-top: 2rem;
+}
+
+.features h2 {
+    margin-bottom: 1rem;
+    color: #343a40;
+}
+
+.features ul {
+    list-style: disc;
+    padding-left: 1.5rem;
+}
+
+.features ul li {
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    padding: 1rem;
+    background: #343a40;
+    color: #ffc107;
+    margin-top: 2rem;
+}
+
+    </style>
+    <script>
+        // Dropdown toggle functionality
+        document.addEventListener("DOMContentLoaded", function () {
+            const dropdown = document.querySelector(".dropdown");
+            const dropdownMenu = document.querySelector(".dropdown-menu");
+
+            dropdown.addEventListener("click", function (event) {
+                event.stopPropagation(); // Prevent event from propagating to body
+                dropdownMenu.classList.toggle("show");
+            });
+
+            document.body.addEventListener("click", function () {
+                dropdownMenu.classList.remove("show");
+            });
+        });
+    </script>
+</head>
+<body>
+<!-- Header -->
+<header class="header">
+    <div class="logo">CarCaddy</div>
+    <nav class="navbar">
+        <ul class="menu">
+            <li><a href="http://localhost:8080//">Home</a></li>
+            <li class="dropdown">
+                <a href="javascript:void(0);">Customer</a>
+                <ul class="dropdown-menu">
+                    <li><a href="/customer/register">Register</a></li>
+                    <li><a href="/customer/get-all-customers">Get All Customers</a></li>
+                    <li><a href="/customer/get-customer-by-id">Get Customer by ID</a></li>
+                   <!-- <li><a href="/customer/update-customer">Update Customer</a></li>-->
+                    <li><a href="/customer/block-customer">Block Customer</a></li>
+                </ul>
+            </li>
+          <!-- <li><a href="/car">Car</a></li>--> 
+           <!-- <li><a href="/booking">Booking</a></li>--> 
+           <!-- <li><a href="/about">About</a></li>--> 
+        </ul>
+    </nav>
+</header>
+
+<!-- Main Content -->
+<main class="container">
+    <h1>Welcome to CarCaddy</h1>
+    <p>
+        CarCaddy is a comprehensive car rental automation system designed to simplify your vehicle rental operations.
+        Whether you're a customer looking to book a car or an administrator managing the fleet, our platform makes it seamless and efficient.
+    </p>
+    <div class="features">
+        <h2>Key Features:</h2>
+        <ul>
+            <li>Customer Registration and Management</li>
+            <li>Vehicle Catalog with Real-Time Availability</li>
+            <li>Online Booking and Payment</li>
+            <li>Detailed Reporting and Analytics</li>
+            <li>Secure and Easy-to-Use Interface</li>
+        </ul>
+    </div>
+</main>
+
+<!-- Footer -->
+<footer class="footer">
+    <p>&copy; 2024 CarCaddy. All Rights Reserved.</p>
+</footer>
+</body>
+</html>

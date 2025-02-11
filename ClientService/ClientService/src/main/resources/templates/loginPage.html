@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" xmlns:th="http://www.thymeleaf.org">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - CarCaddy</title>
+    <link rel="stylesheet" href="navbar.html">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: #f0f0f0;
+        }
+        .navbar {
+            background-color: #1f1f1f;
+            color: #fff;
+            padding: 15px 10%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+        }
+        .navbar .brand {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #007bff; /* Blue color for the brand */
+        }
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            margin-left: 15px;
+            transition: color 0.3s;
+            position: relative;
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #007bff; 
+            transition: width 0.3s ease;
+        }
+        .nav-links a:hover {
+            color: #007bff;
+        }
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        .form-container {
+            max-width: 400px;
+            margin: 50px auto;
+            background-color: #1e1e1e;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
+            transition: background-color 0.3s; 
+        }
+        h1 {
+            color: #007bff; 
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        form label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 1.1em;
+            color: #ccc;
+        }
+        form input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            background-color: #2c2c2c;
+            border: none;
+            border-radius: 5px;
+            color: #f0f0f0;
+            font-size: 1em;
+            transition: box-shadow 0.3s;
+        }
+        form input:focus {
+            box-shadow: 0 0 8px rgba(0, 123, 255, 0.8); 
+            outline: none;
+        }
+        .btn-submit {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: #007bff; 
+            color: #fff;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+        }
+        .btn-submit:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 123, 255, 0.9); 
+            background-color: #0056b3; 
+            outline: 2px solid #007bff; 
+        }
+		
+		.password-container {
+		    position: relative;
+		    display: flex;
+		    align-items: center;
+		}
+
+		.password-container input {
+		    width: 100%;
+		    padding-right: 30px; /* Space for the icon */
+		}
+
+		.password-container .toggle-password {
+		    position: absolute;
+		    right: 10px;
+		    cursor: pointer;
+		    color: #888;
+		}
+
+		.password-container .toggle-password:hover {
+		    color: #000;
+		}
+
+    </style>
+</head>
+<body>
+    <div>
+        <div class="navbar">
+            <div class="brand">CarCaddy</div>
+            <div class="nav-links">
+                <a th:href="@{/}">Employee Management</a>
+                <a href="#">Car Management</a>
+                <a href="#">Customer Management</a>
+                <a href="#">Rental Management</a>
+                <a href="#">Reports</a>
+            </div>
+        </div>
+    </div>
+
+	<div class="form-container">
+	    <h1>Login</h1>
+	    <form action="/firstLogin" method="post">
+	        <label for="employeeId">Employee Id</label>
+	        <input type="text" id="employeeId" name="employeeId" th:value="${employeeId}">
+
+	        <label for="defaultPassword">Old Password</label>
+	        <input type="text" id="defaultPassword" name="defaultPassword" th:value="${defaultPassword}">
+
+	        <label for="newPassword">New Password</label>
+	        <div class="password-container">
+	            <input type="password" id="newPassword" name="newPassword" placeholder="Enter New Password" required>
+	            <span class="toggle-password" onclick="togglePasswordVisibility()">
+	                <i id="password-icon" class="fa fa-eye"></i>
+	            </span>
+	        </div>
+
+	        <button type="submit" class="btn-submit">Login</button>
+	    </form>
+	    
+	    <div id="message" th:text="${message}" style="display: none;"></div>
+	    <div id="error" th:text="${error}" style="display: none;"></div>
+
+	    <!-- JavaScript to handle alert and redirect after submission -->
+	    <script>
+	        /* Display Success Message */
+	        const message = document.getElementById('message').innerText;
+	        if (message) {
+	            alert(message);
+	        }
+
+	        /* Display Error Message */
+	        const error = document.getElementById('error').innerText;
+	        if (error) {
+	            alert(error);
+	        }
+
+	        /* Toggle Password Visibility */
+	        function togglePasswordVisibility() {
+	            const passwordField = document.getElementById('newPassword');
+	            const passwordIcon = document.getElementById('password-icon');
+	            if (passwordField.type === 'password') {
+	                passwordField.type = 'text';
+	                passwordIcon.classList.remove('fa-eye');
+	                passwordIcon.classList.add('fa-eye-slash');
+	            } else {
+	                passwordField.type = 'password';
+	                passwordIcon.classList.remove('fa-eye-slash');
+	                passwordIcon.classList.add('fa-eye');
+	            }
+	        }
+	    </script>
+	</div>
+</body>
+</html>
